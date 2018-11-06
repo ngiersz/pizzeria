@@ -1,28 +1,54 @@
 package com.put.bd.pizzeria.service;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
-import com.put.bd.pizzeria.domain.Address;
 import com.put.bd.pizzeria.domain.Client;
+import com.put.bd.pizzeria.persistance.ClientRepository;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class ClientService {
 
-    private Map<Long, Client> repository;
+    ClientRepository repository;
 
-    public ClientService() {
-        repository = ImmutableMap.<Long, Client>builder()
-                .put(1L, new Client(1L, "Marcin", "Hradowicz", "marcin@put.pl", "123456789"))
-                .put(2L, new Client(2L, "Natalia", "Gierszewska", "natalia@put.pl", "000111222"))
-                .put(3L, new Client(3L, "Jakub Piotr", "Hamerliński", "jakub.piotr@put.pl", "999888777"))
-                .build();
+    public ClientService(ClientRepository repository) {
+        this.repository = repository;
     }
 
     public List<Client> getAll() {
-        return Lists.newArrayList(repository.values());
+        return repository.findAll();
     }
+
+    public Client get(Long id) {
+        Optional<Client> event;
+        if((event = repository.findById(id)).isPresent()) {
+            return event.get();
+        }
+        throw new EntityNotFoundException();
+    }
+
+    public void update(Long id, Client client) {
+        Optional<Client> clientNotUpdated = repository.findById(id);
+        if(clientNotUpdated.isPresent()) {
+            repository.save(new Client(clientNotUpdated.get().getId(), client));
+        } else {
+            throw new EntityNotFoundException();
+        }
+    }
+
+    public Long create(Client client) {
+        return repository.save(client).getId();
+    }
+
+    public void delete(Long id) {
+        Optional<Client> event = repository.findById(id);
+        if(event.isPresent()) {
+            repository.delete(event.get());
+        } else {
+            throw new EntityNotFoundException();
+        }
+    }
+
 }
