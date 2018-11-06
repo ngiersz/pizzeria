@@ -19,17 +19,16 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
-    @Column(name = "Firstname")
+    @Column(name = "firstname")
     String firstName;
 
-    @Column(name = "Lastname")
+    @Column(name = "lastname")
     String lastName;
 
-    @Column(name = "Email")
+    @Column(name = "email")
     String email;
 
-    @Column(name = "PhoneNumber")
-//    @Max(12)
+    @Column(name = "phone_number")
     String phoneNumber;
 
     public Client(Long id, Client client) {
