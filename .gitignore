@@ -29,3 +29,5 @@ target/*
 
 .mvn/*
 mvnw
+
+.application.properties

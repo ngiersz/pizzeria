@@ -1,0 +1,8 @@
+spring.datasource.url=jdbc:postgresql://localhost:5432/pizzeria
+spring.datasource.username=
+spring.datasource.password=
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.hibernate.ddl-auto=update
+
+# Ignore not implemented method org.postgresql.jdbc.PgConnection.createClob
+spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation=true
