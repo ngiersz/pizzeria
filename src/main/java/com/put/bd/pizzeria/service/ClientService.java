@@ -2,20 +2,24 @@ package com.put.bd.pizzeria.service;
 
 import com.put.bd.pizzeria.domain.Client;
 import com.put.bd.pizzeria.persistance.ClientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ClientService {
 
+    @Autowired
     ClientRepository repository;
 
-    public ClientService(ClientRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    JdbcTemplate jdbcTemplate;
 
     public List<Client> getAll() {
         return repository.findAll();
@@ -38,8 +42,19 @@ public class ClientService {
         }
     }
 
-    public Long create(Client client) {
-        return repository.save(client).getId();
+    public Long create(Client client) throws SQLException {
+        String query = "EXEC insert_client '" +
+                client.getFirstName() + "', '" +
+                client.getLastName() + "', '" +
+                client.getEmail() + "', '" +
+                client.getPhoneNumber() + "', " +
+                client.getAddressId();
+        try {
+            jdbcTemplate.execute(query);
+        } catch (DataAccessException e) {
+            throw new SQLException("Cannot add new client. " + e.getMostSpecificCause());
+        }
+        return repository.findByFirstNameAndLastName(client.getFirstName(), client.getLastName()).get(0).getId();
     }
 
     public void delete(Long id) {

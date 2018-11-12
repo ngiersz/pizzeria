@@ -8,33 +8,31 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@RequiredArgsConstructor
 @Entity
 public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @NonNull
-    Long id;// = new Long(10L);
+    Long id;
 
     @Column(name = "first_name")
-    @NonNull
     String firstName;
 
     @Column(name = "last_name")
-    @NonNull
     String lastName;
 
     @Column(name = "email")
-    @NonNull
     String email;
 
     @Column(name = "phone_number")
-    @NonNull
     String phoneNumber;
 
-    int address_id = 1;
+    @Column(name = "address_id")
+    int addressId;
+
+    @Column(name = "login")
+    String login;
 
     public Client(Long id, Client client) {
         this.id = id;
@@ -42,8 +40,12 @@ public class Client {
         this.lastName = client.lastName;
         this.email = client.email;
         this.phoneNumber = client.phoneNumber;
+        this.addressId = client.addressId;
+        this.login = client.login;
     }
 
-//    Address address;
-
+    @Override
+    public String toString() {
+        return login + "; " + firstName + " " + lastName + " (" + email + "; " + phoneNumber + "; address_id = " + addressId;
+    }
 }
