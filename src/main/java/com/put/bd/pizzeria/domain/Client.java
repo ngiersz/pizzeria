@@ -15,9 +15,9 @@ import javax.persistence.*;
 public class Client {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    Long id;
+    Long id;// = new Long(10L);
 
     @Column(name = "first_name")
     String firstName;
@@ -30,6 +30,8 @@ public class Client {
 
     @Column(name = "phone_number")
     String phoneNumber;
+
+    int address_id = 1;
 
     public Client(Long id, Client client) {
         this.id = id;
