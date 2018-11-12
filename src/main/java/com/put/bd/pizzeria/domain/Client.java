@@ -1,9 +1,6 @@
 package com.put.bd.pizzeria.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,24 +8,30 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 @Entity
 public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @NonNull
     Long id;// = new Long(10L);
 
     @Column(name = "first_name")
+    @NonNull
     String firstName;
 
     @Column(name = "last_name")
+    @NonNull
     String lastName;
 
     @Column(name = "email")
+    @NonNull
     String email;
 
     @Column(name = "phone_number")
+    @NonNull
     String phoneNumber;
 
     int address_id = 1;
