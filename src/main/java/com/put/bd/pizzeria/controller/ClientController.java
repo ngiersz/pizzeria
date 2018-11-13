@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -48,11 +49,11 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public void update(@PathVariable(value = "id") Long id, @RequestBody Client client) {
+    public void update(@PathVariable(value = "id") Long id,@RequestBody Client client) throws SQLException {
         service.update(id, client);
     }
 
-    @ExceptionHandler({ SQLException.class })
+    @ExceptionHandler({ SQLException.class, EntityNotFoundException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public void handleException(Exception e) throws Exception {
         log.error(e.getMessage());

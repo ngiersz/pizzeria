@@ -30,15 +30,22 @@ public class ClientService {
         if((event = repository.findById(id)).isPresent()) {
             return event.get();
         }
-        throw new EntityNotFoundException();
+        throw new EntityNotFoundException("Client id " + id + " doesn't exist");
     }
 
-    public void update(Long id, Client client) {
-        Optional<Client> clientNotUpdated = repository.findById(id);
-        if(clientNotUpdated.isPresent()) {
-            repository.save(new Client(clientNotUpdated.get().getId(), client));
-        } else {
-            throw new EntityNotFoundException();
+    public void update(Long id, Client client) throws SQLException {
+        String query = "EXEC update_client " +
+                client.getId() + ", '" +
+                client.getFirstName() + "', '" +
+                client.getLastName() + "', '" +
+                client.getEmail() + "', '" +
+                client.getPhoneNumber() + "', " +
+                client.getAddressId();
+        System.out.println(query);
+        try {
+            jdbcTemplate.execute(query);
+        } catch (DataAccessException e) {
+            throw new SQLException("Cannot update client. " + e.getMostSpecificCause());
         }
     }
 
@@ -57,12 +64,12 @@ public class ClientService {
         return repository.findByFirstNameAndLastName(client.getFirstName(), client.getLastName()).get(0).getId();
     }
 
-    public void delete(Long id) {
+    public void delete(Long id) throws EntityNotFoundException {
         Optional<Client> event = repository.findById(id);
         if(event.isPresent()) {
             repository.delete(event.get());
         } else {
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException("Client id " + id + " doesn't exist");
         }
     }
 
