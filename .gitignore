@@ -30,4 +30,4 @@ target/*
 .mvn/*
 mvnw
 
-.application.properties
+*/application.properties
