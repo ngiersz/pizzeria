@@ -3,12 +3,15 @@ package com.put.bd.pizzeria.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "Clients")
 public class Client {
 
     @Id
@@ -17,12 +20,15 @@ public class Client {
     Long id;
 
     @Column(name = "first_name")
+    @Size(max = 20)
     String firstName;
 
     @Column(name = "last_name")
+    @Size(max = 40)
     String lastName;
 
     @Column(name = "email")
+    @NotEmpty
     String email;
 
     @Column(name = "phone_number")

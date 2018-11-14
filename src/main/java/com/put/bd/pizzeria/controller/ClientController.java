@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class ClientController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public Long create(@RequestBody Client client) throws SQLException {
+    public Long create(@Valid @RequestBody Client client) throws SQLException {
         try {
             return service.create(client);
         } finally {
