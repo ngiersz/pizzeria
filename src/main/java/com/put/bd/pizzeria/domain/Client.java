@@ -19,25 +19,25 @@ public class Client {
     @Column(name = "id")
     Integer id;
 
-    @Column(name = "first_name", columnDefinition = "NVARCHAR")
+    @Column(name = "first_name", columnDefinition = "NVARCHAR(100)")
     @Size(max = 20)
     String firstName;
 
-    @Column(name = "last_name", columnDefinition = "NVARCHAR")
+    @Column(name = "last_name", columnDefinition = "NVARCHAR(100)")
     @Size(max = 40)
     String lastName;
 
-    @Column(name = "email", columnDefinition = "NVARCHAR")
+    @Column(name = "email", columnDefinition = "NVARCHAR(100)")
 //    @NotEmpty
     String email;
 
-    @Column(name = "phone_number", columnDefinition = "NVARCHAR")
+    @Column(name = "phone_number", columnDefinition = "NVARCHAR(100)")
     String phoneNumber;
 
     @Column(name = "address_id")
     int addressId;
 
-    @Column(name = "login", columnDefinition = "NVARCHAR")
+    @Column(name = "login", columnDefinition = "NVARCHAR(100)")
     String login;
 
     public Client(Integer id, Client client) {
