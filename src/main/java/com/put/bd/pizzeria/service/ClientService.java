@@ -18,8 +18,12 @@ public class ClientService {
     @Autowired
     ClientRepository repository;
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
+    public ClientService(ClientRepository repository) {
+        this.repository = repository;
+        repository.save(new Client(1, "Jakub Piotr", "Hamerliński", "123456789", "jh@gmail.com", 1, "jh1"));
+        repository.save(new Client(2, "Marcin", "Hradowicz", "123456789", "mh@gmail.com", 1, "mh2"));
+        repository.save(new Client(3, "Natalia", "Gierszewska", "123456789", "ng@gmail.com", 1, "ng3"));
+    }
 
     public List<Client> getAll() {
         return repository.findAll();
@@ -33,35 +37,17 @@ public class ClientService {
         throw new EntityNotFoundException("Client id " + id + " doesn't exist");
     }
 
-    public void update(Integer id, Client client) throws SQLException {
-        String query = "EXEC update_client " +
-                client.getId() + ", '" +
-                client.getFirstName() + "', '" +
-                client.getLastName() + "', '" +
-                client.getEmail() + "', '" +
-                client.getPhoneNumber() + "', " +
-                client.getAddressId();
-        System.out.println(query);
-        try {
-            jdbcTemplate.execute(query);
-        } catch (DataAccessException e) {
-            throw new SQLException("Cannot update client. " + e.getMostSpecificCause());
+    public void update(Integer id, Client client) {
+        Optional<Client> client1 = repository.findById(id);
+        if(client1.isPresent()) {
+            repository.save(new Client(id, client));
+        } else {
+            throw new EntityNotFoundException("Client id " + id + " doesn't exist");
         }
     }
 
-    public Integer create(Client client) throws SQLException {
-        String query = "EXEC insert_client '" +
-                client.getFirstName() + "', '" +
-                client.getLastName() + "', '" +
-                client.getEmail() + "', '" +
-                client.getPhoneNumber() + "', " +
-                client.getAddressId();
-        try {
-            jdbcTemplate.execute(query);
-        } catch (DataAccessException e) {
-            throw new SQLException("Cannot add new client. " + e.getMostSpecificCause());
-        }
-        return repository.findByFirstNameAndLastName(client.getFirstName(), client.getLastName()).get(0).getId();
+    public Integer create(Client client) {
+        return repository.save(client).getId();
     }
 
     public void delete(Integer id) throws EntityNotFoundException {

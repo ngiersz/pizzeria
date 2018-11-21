@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.sql.SQLException;
-import java.util.List;
 
 @RestController
 @RequestMapping("/clients")
@@ -28,7 +27,7 @@ public class ClientController {
     @RequestMapping(method = RequestMethod.GET)
     public String getAll() {
 //        String result = "";
-        String result = "{\"Clients\":[\n";
+        String result = "{\"Clients\":[\n\n";
         for (Client client : service.getAll()) {
                result += client.toString() + "\n,";
         }
