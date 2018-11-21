@@ -11,36 +11,36 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Client")
+@Table(name = "client")
 public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    Long id;
+    Integer id;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", columnDefinition = "NVARCHAR")
     @Size(max = 20)
     String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", columnDefinition = "NVARCHAR")
     @Size(max = 40)
     String lastName;
 
-    @Column(name = "email")
-    @NotEmpty
+    @Column(name = "email", columnDefinition = "NVARCHAR")
+//    @NotEmpty
     String email;
 
-    @Column(name = "phone_number")
+    @Column(name = "phone_number", columnDefinition = "NVARCHAR")
     String phoneNumber;
 
     @Column(name = "address_id")
     int addressId;
 
-    @Column(name = "login")
+    @Column(name = "login", columnDefinition = "NVARCHAR")
     String login;
 
-    public Client(Long id, Client client) {
+    public Client(Integer id, Client client) {
         this.id = id;
         this.firstName = client.firstName;
         this.lastName = client.lastName;

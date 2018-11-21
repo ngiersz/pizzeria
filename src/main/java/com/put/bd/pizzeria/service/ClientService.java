@@ -25,7 +25,7 @@ public class ClientService {
         return repository.findAll();
     }
 
-    public Client get(Long id) {
+    public Client get(Integer id) {
         Optional<Client> event;
         if((event = repository.findById(id)).isPresent()) {
             return event.get();
@@ -33,7 +33,7 @@ public class ClientService {
         throw new EntityNotFoundException("Client id " + id + " doesn't exist");
     }
 
-    public void update(Long id, Client client) throws SQLException {
+    public void update(Integer id, Client client) throws SQLException {
         String query = "EXEC update_client " +
                 client.getId() + ", '" +
                 client.getFirstName() + "', '" +
@@ -49,7 +49,7 @@ public class ClientService {
         }
     }
 
-    public Long create(Client client) throws SQLException {
+    public Integer create(Client client) throws SQLException {
         String query = "EXEC insert_client '" +
                 client.getFirstName() + "', '" +
                 client.getLastName() + "', '" +
@@ -64,7 +64,7 @@ public class ClientService {
         return repository.findByFirstNameAndLastName(client.getFirstName(), client.getLastName()).get(0).getId();
     }
 
-    public void delete(Long id) throws EntityNotFoundException {
+    public void delete(Integer id) throws EntityNotFoundException {
         Optional<Client> event = repository.findById(id);
         if(event.isPresent()) {
             repository.delete(event.get());

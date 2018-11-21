@@ -32,18 +32,18 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String get(@PathVariable(value = "id") Long id) {
+    public String get(@PathVariable(value = "id") Integer id) {
         return service.get(id).toString();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable(value = "id") Long id) {
+    public void delete(@PathVariable(value = "id") Integer id) {
         service.delete(id);
     }
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public Long create(@Valid @RequestBody Client client) throws SQLException {
+    public Integer create(@Valid @RequestBody Client client) throws SQLException {
         try {
             return service.create(client);
         } finally {
@@ -52,7 +52,7 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public void update(@PathVariable(value = "id") Long id,@RequestBody Client client) throws SQLException {
+    public void update(@PathVariable(value = "id") Integer id,@RequestBody Client client) throws SQLException {
         service.update(id, client);
     }
 
