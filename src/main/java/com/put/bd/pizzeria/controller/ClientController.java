@@ -25,10 +25,16 @@ public class ClientController {
         this.service = service;
     }
 
-    // TODO
     @RequestMapping(method = RequestMethod.GET)
-    public List<Client> getAll() {
-        return service.getAll();
+    public String getAll() {
+//        String result = "";
+        String result = "{\"Clients\":[\n";
+        for (Client client : service.getAll()) {
+               result += client.toString() + "\n,";
+        }
+//        result = result.substring(0, result.length() - 1);
+        result = result.substring(0, result.length()-2) + "\n]}";
+        return result;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -59,8 +65,10 @@ public class ClientController {
     @ExceptionHandler({ SQLException.class, EntityNotFoundException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public void handleException(Exception e) throws Exception {
+        Exception newException = new Exception(e.getMessage());
+        System.out.println("new Exception(e.getMessage()).toString(): " + newException.toString());
         log.error(e.getMessage());
-        throw new Exception(e.getMessage());
+        throw newException;
     }
 
 }
