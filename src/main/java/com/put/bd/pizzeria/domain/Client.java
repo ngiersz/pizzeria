@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Clients")
+@Table(name = "Client")
 public class Client {
 
     @Id
@@ -51,7 +51,15 @@ public class Client {
     }
 
     @Override
-    public String toString() {
-        return login + "; " + firstName + " " + lastName + " (" + email + "; " + phoneNumber + "; address_id = " + addressId;
+    public String toString()
+    {
+        return "{\n" +
+                "\"id\":\"" + id + "\",\n" +
+                "\"first_name\":\"" + firstName + "\",\n" +
+                "\"last_name\":\"" + lastName + "\",\n" +
+                "\"login\":\"" + login + "\",\n" +
+                "\"email\":\"" + email + "\",\n" +
+                "\"phone_number\":\"" + phoneNumber + "\",\n" +
+                "\"address_id\":\"" + addressId + "\"\n}";
     }
 }

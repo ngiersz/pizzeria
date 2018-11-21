@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/clients")
+@CrossOrigin(origins = "*") // ip Kuby
 @Slf4j
 public class ClientController {
 
@@ -24,14 +25,15 @@ public class ClientController {
         this.service = service;
     }
 
+    // TODO
     @RequestMapping(method = RequestMethod.GET)
     public List<Client> getAll() {
         return service.getAll();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Client get(@PathVariable(value = "id") Long id) {
-        return service.get(id);
+    public String get(@PathVariable(value = "id") Long id) {
+        return service.get(id).toString();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
