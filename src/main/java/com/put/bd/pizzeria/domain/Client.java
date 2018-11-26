@@ -40,6 +40,9 @@ public class Client {
     @Column(name = "login", columnDefinition = "NVARCHAR(100)")
     String login;
 
+    @Column(name = "amount_of_orders")
+    Integer amountOfOrders;
+
     public Client(Integer id, Client client) {
         this.id = id;
         this.firstName = client.firstName;
@@ -48,18 +51,19 @@ public class Client {
         this.phoneNumber = client.phoneNumber;
         this.addressId = client.addressId;
         this.login = client.login;
+        this.amountOfOrders = client.amountOfOrders;
     }
 
-    @Override
-    public String toString()
-    {
-        return "{\n" +
-                "\"id\":\"" + id + "\",\n" +
-                "\"first_name\":\"" + firstName + "\",\n" +
-                "\"last_name\":\"" + lastName + "\",\n" +
-                "\"login\":\"" + login + "\",\n" +
-                "\"email\":\"" + email + "\",\n" +
-                "\"phone_number\":\"" + phoneNumber + "\",\n" +
-                "\"address_id\":\"" + addressId + "\"\n}";
-    }
+//    @Override
+//    public String toString()
+//    {
+//        return "{\n" +
+//                "\"id\":\"" + id + "\",\n" +
+//                "\"first_name\":\"" + firstName + "\",\n" +
+//                "\"last_name\":\"" + lastName + "\",\n" +
+//                "\"login\":\"" + login + "\",\n" +
+//                "\"email\":\"" + email + "\",\n" +
+//                "\"phone_number\":\"" + phoneNumber + "\",\n" +
+//                "\"address_id\":\"" + addressId + "\"\n}";
+//    }
 }

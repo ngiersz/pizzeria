@@ -2,6 +2,8 @@ package com.put.bd.pizzeria.service;
 
 import com.put.bd.pizzeria.domain.Client;
 import com.put.bd.pizzeria.persistance.ClientRepository;
+import com.put.bd.pizzeria.utils.JsonConverter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,10 +11,12 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class ClientService {
 
     @Autowired
@@ -21,8 +25,8 @@ public class ClientService {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    public List<Client> getAll() {
-        return repository.findAll();
+    public String getAll() {
+        return JsonConverter.objectsListToJson(Collections.singletonList(repository.findAll()), "Clients");
     }
 
     public Client get(Integer id) {
@@ -35,13 +39,14 @@ public class ClientService {
 
     public void update(Integer id, Client client) throws SQLException {
         String query = "EXEC update_client " +
-                client.getId() + ", '" +
+                id + ", '" +
                 client.getFirstName() + "', '" +
                 client.getLastName() + "', '" +
                 client.getEmail() + "', '" +
                 client.getPhoneNumber() + "', " +
                 client.getAddressId();
         System.out.println(query);
+
         try {
             jdbcTemplate.execute(query);
         } catch (DataAccessException e) {

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/clients")
@@ -27,17 +28,12 @@ public class ClientController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String getAll() {
-        String result = "{\"Clients\":[\n";
-        for (Client client : service.getAll()) {
-               result += client.toString() + "\n,";
-        }
-        result = result.substring(0, result.length()-2) + "\n]}";
-        return result;
+        return service.getAll();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String get(@PathVariable(value = "id") Integer id) {
-        return service.get(id).toString();
+        return JsonConverter.objectToJson(service.get(id));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -48,6 +44,8 @@ public class ClientController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Integer create(@RequestBody String clientStr) throws SQLException, IOException {
+        System.out.println("CLIENT POST: ");
+        System.out.println(clientStr);
         Client client = (Client) JsonConverter.jsonToClassObject(clientStr, Client.class);
         try {
             return service.create(client);
@@ -57,7 +55,8 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public void update(@PathVariable(value = "id") Integer id,@RequestBody String clientStr) throws SQLException, IOException {
+    public void update(@PathVariable(value = "id") Integer id, @RequestBody String clientStr) throws SQLException, IOException {
+        System.out.println("UPDATE id: " + id);
         Client client = (Client) JsonConverter.jsonToClassObject(clientStr, Client.class);
         service.update(id, client);
     }

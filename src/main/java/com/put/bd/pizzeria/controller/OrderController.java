@@ -2,6 +2,7 @@ package com.put.bd.pizzeria.controller;
 
 import com.put.bd.pizzeria.domain.Order;
 import com.put.bd.pizzeria.persistance.OrderRepository;
+import com.put.bd.pizzeria.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,21 +19,20 @@ import java.util.List;
 public class OrderController {
 
     @Autowired
-    OrderRepository repository;
+    OrderService service;
 
-    public OrderController(OrderRepository repository) {
-        this.repository = repository;
+    public OrderController(OrderService service) {
+        this.service = service;
     }
 
-    // TODO
     @RequestMapping(method = RequestMethod.GET)
-    public List<Order> getAll() {
-        return repository.findAll();
+    public String getAll() {
+        return service.getAll();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String get(@PathVariable(value = "id") Integer id) {
-        return repository.findById(id).get().toString();
+        return service.get(id);
     }
 
     // TODO
@@ -43,18 +43,17 @@ public class OrderController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public Integer create(@Valid @RequestBody Order order) {
+    public Integer create(@RequestBody String orderStr) {
         try {
-            return repository.save(order).getId();
+            return service.save(orderStr).getId();
         } finally {
             log.debug("New client was created");
         }
     }
 
-    // TODO
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public void update(@PathVariable(value = "id") Integer id, @RequestBody Order order) {
-        repository.save(order);
+    public void update(@PathVariable(value = "id") Integer id, @RequestBody String orderStr) {
+        service.update(id, orderStr);
     }
 
     @ExceptionHandler({ EntityNotFoundException.class})
