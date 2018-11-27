@@ -1,5 +1,6 @@
 package com.put.bd.pizzeria.service;
 
+import com.put.bd.pizzeria.controller.RestResponseEntityExceptionHandler;
 import com.put.bd.pizzeria.domain.Client;
 import com.put.bd.pizzeria.persistance.ClientRepository;
 import com.put.bd.pizzeria.utils.JsonConverter;
@@ -24,6 +25,9 @@ public class ClientService {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    RestResponseEntityExceptionHandler exceptionHandler;
 
     public String getAll() {
         return JsonConverter.objectsListToJson(Collections.singletonList(repository.findAll()), "Clients");

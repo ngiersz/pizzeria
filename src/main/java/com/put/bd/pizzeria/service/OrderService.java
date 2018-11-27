@@ -28,7 +28,11 @@ public class OrderService {
     }
 
     public Order save(String orderStr) {
-        return repository.save((Order) JsonConverter.jsonToClassObject(orderStr, Order.class));
+        Order order = (Order) JsonConverter.jsonToClassObject(orderStr, Order.class);
+        System.out.println(orderStr);
+        System.out.println(order.getId());
+        System.out.println(order.getClientId());
+        return repository.save(order);
     }
 
     public void update(Integer id, String orderStr) {

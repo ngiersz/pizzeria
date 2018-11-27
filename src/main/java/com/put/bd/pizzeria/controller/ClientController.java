@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 @RestController
 @RequestMapping("/clients")
@@ -22,9 +21,9 @@ public class ClientController {
     @Autowired
     ClientService service;
 
-    public ClientController(ClientService service) {
-        this.service = service;
-    }
+    @Autowired
+    RestResponseEntityExceptionHandler exceptionHandler;
+
 
     @RequestMapping(method = RequestMethod.GET)
     public String getAll() {
@@ -33,7 +32,11 @@ public class ClientController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String get(@PathVariable(value = "id") Integer id) {
-        return JsonConverter.objectToJson(service.get(id));
+        try {
+            return JsonConverter.objectToJson(service.get(id));
+        } catch (EntityNotFoundException e) {
+            return exceptionHandler.handleException(e);
+        }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -43,13 +46,15 @@ public class ClientController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public Integer create(@RequestBody String clientStr) throws SQLException, IOException {
+    public String create(@RequestBody String clientStr) {
         System.out.println("CLIENT POST: ");
         System.out.println(clientStr);
         Client client = (Client) JsonConverter.jsonToClassObject(clientStr, Client.class);
         try {
-            return service.create(client);
-        } finally {
+            return service.create(client).toString();
+        } catch (SQLException e) {
+            return exceptionHandler.handleException(e);
+        }  finally {
             log.debug("New client was created");
         }
     }
@@ -61,13 +66,13 @@ public class ClientController {
         service.update(id, client);
     }
 
-    @ExceptionHandler({ SQLException.class, EntityNotFoundException.class})
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public void handleException(Exception e) throws Exception {
-        Exception newException = new Exception(e.getMessage());
-        System.out.println("new Exception(e.getMessage()).toString(): " + newException.toString());
-        log.error(e.getMessage());
-        throw newException;
-    }
+//    @ExceptionHandler({ SQLException.class, EntityNotFoundException.class})
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    public void handleException(Exception e) throws Exception {
+//        Exception newException = new Exception(e.getMessage());
+//        log.error(e.getMessage());
+//        throw newException;
+//
+//    }
 
 }
