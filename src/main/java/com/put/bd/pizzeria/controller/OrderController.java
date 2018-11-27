@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/dishLists")
 @CrossOrigin(origins = "*")
 @Slf4j
 public class OrderController {
@@ -45,9 +45,9 @@ public class OrderController {
     @ResponseStatus(HttpStatus.CREATED)
     public Integer create(@RequestBody String orderStr) {
         try {
-            return service.save(orderStr).getId();
+            return service.save(orderStr);
         } finally {
-            log.debug("New client was created");
+            log.debug("New order was created");
         }
     }
 

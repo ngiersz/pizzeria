@@ -1,10 +1,7 @@
 package com.put.bd.pizzeria.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +9,7 @@ import javax.persistence.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "\"order\"")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -40,18 +38,18 @@ public class Order {
     @Column(name = "completed")
     Boolean completed;
 
-//    @Override
-//    public String toString() {
-//        return "{\n" +
-//                "  \"id\": \"" + this.id + "\",\n" +
-//                "  \"clientId\": \"" + this.clientId + "\",\n" +
-//                "  \"delivererId\": \"" + this.delivererId + "\",\n" +
-//                "  \"cookId\": \"" + this.cookId + "\",\n" +
-//                "  \"deliveryTime\": \"" + this.deliveryTime + "\",\n" +
-//                "  \"discount\": \"" + this.discount + "\",\n" +
-//                "  \"completed\": \"" + this.completed + "\"\n" +
-//                "}";
-//    }
+    @Override
+    public String toString() {
+        return "{\n" +
+                "  \"id\": \"" + this.id + "\",\n" +
+                "  \"clientId\": \"" + this.clientId + "\",\n" +
+                "  \"delivererId\": \"" + this.delivererId + "\",\n" +
+                "  \"cookId\": \"" + this.cookId + "\",\n" +
+                "  \"deliveryTime\": \"" + this.deliveryTime + "\",\n" +
+                "  \"discount\": \"" + this.discount + "\",\n" +
+                "  \"completed\": \"" + this.completed + "\"\n" +
+                "}";
+    }
 
     public Order(Integer id, Order order) {
         this.id = id;
@@ -61,4 +59,5 @@ public class Order {
         this.discount = order.discount;
         this.completed = order.completed;
     }
+
 }

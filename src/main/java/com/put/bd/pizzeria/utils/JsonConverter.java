@@ -1,12 +1,15 @@
 package com.put.bd.pizzeria.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import com.put.bd.pizzeria.domain.Client;
+import com.put.bd.pizzeria.domain.DishMenu;
+import com.put.bd.pizzeria.domain.OrderedDish;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -42,6 +45,19 @@ public class JsonConverter {
         System.out.println("trimmed = " + trimmed);
         stringReader = new StringReader(trimmed);
         return gson.fromJson(new JsonReader(stringReader), c);
+    }
+
+    public static List<Object> jsonListToClassObjectList(String jsonStr, Class c) {
+        String trimmed = trim(jsonStr);
+        stringReader = new StringReader(trimmed);
+        System.out.println(trimmed);
+//        return gson.fromJson(new JsonReader(stringReader), c);
+        try {
+            return objectMapper.readValue(trimmed, new TypeReference<List<DishMenu>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private static String trim(String jsonStr) {
