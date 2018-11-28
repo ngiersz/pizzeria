@@ -8,11 +8,9 @@ import com.put.bd.pizzeria.persistance.OrderRepository;
 import com.put.bd.pizzeria.persistance.OrderedDishRepository;
 import com.put.bd.pizzeria.utils.JsonConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,6 +36,10 @@ public class OrderService {
     public String get(Integer id) {
         Order order = orderRepository.getOne(id);
         return JsonConverter.objectToJson(order);
+    }
+
+    public String getClientsOrders(Integer clientId) {
+        return JsonConverter.objectsListToJson(Collections.singletonList(orderRepository.findByClientId(clientId)), "Orders");
     }
 
     public Integer save(String orderStr) {

@@ -1,10 +1,10 @@
 package com.put.bd.pizzeria.controller;
 
+import com.put.bd.pizzeria.domain.DishMenu;
 import com.put.bd.pizzeria.persistance.DishMenuRepository;
 import com.put.bd.pizzeria.utils.JsonConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -28,6 +28,12 @@ public class DishMenuController {
         return JsonConverter.objectToJson(repository.findById(id));
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public void create(@RequestBody String jsonStr) {
+        DishMenu dishMenu = (DishMenu) JsonConverter.jsonToClassObject(jsonStr, DishMenu.class);
+        System.out.println(dishMenu.getId() + " " + dishMenu.getName());
+
+    }
 
 
 }

@@ -1,7 +1,5 @@
 package com.put.bd.pizzeria.controller;
 
-import com.put.bd.pizzeria.domain.Order;
-import com.put.bd.pizzeria.persistance.OrderRepository;
 import com.put.bd.pizzeria.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
-import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/dishLists")
@@ -33,6 +29,11 @@ public class OrderController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String get(@PathVariable(value = "id") Integer id) {
         return service.get(id);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String getClientOrders(@RequestParam(value = "id") Integer clientId) {
+        return service.getClientsOrders(clientId);
     }
 
     // TODO
