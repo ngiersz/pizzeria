@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityNotFoundException;
 
 @RestController
-@RequestMapping("/dishLists")
+@RequestMapping("/orders")
 @CrossOrigin(origins = "*")
 @Slf4j
 public class OrderController {
@@ -31,10 +31,14 @@ public class OrderController {
         return service.get(id);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String getClientOrders(@RequestParam(value = "id") Integer clientId) {
-        return service.getClientsOrders(clientId);
-    }
+//    @RequestMapping(method = RequestMethod.GET)
+//    public String getClientOrders(@RequestParam(value = "filter[clientId]") Integer clientId) {
+//        System.out.println("client id = " + clientId);
+//        if (clientId == null) {
+//            return service.getAll();
+//        }
+//        return service.getClientsOrders(clientId);
+//    }
 
     // TODO
 //    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
