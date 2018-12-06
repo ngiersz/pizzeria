@@ -1,9 +1,14 @@
 package com.put.bd.pizzeria.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import io.katharsis.resource.annotations.JsonApiId;
+import io.katharsis.resource.annotations.JsonApiResource;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Getter
@@ -12,11 +17,13 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @Entity
 @Table(name = "client")
+@JsonApiResource(type = "clients")
 public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @JsonApiId
     Integer id;
 
     @Column(name = "first_name", columnDefinition = "NVARCHAR(100)")
@@ -54,16 +61,5 @@ public class Client {
         this.amountOfOrders = client.amountOfOrders;
     }
 
-//    @Override
-//    public String toString()
-//    {
-//        return "{\n" +
-//                "\"id\":\"" + id + "\",\n" +
-//                "\"first_name\":\"" + firstName + "\",\n" +
-//                "\"last_name\":\"" + lastName + "\",\n" +
-//                "\"login\":\"" + login + "\",\n" +
-//                "\"email\":\"" + email + "\",\n" +
-//                "\"phone_number\":\"" + phoneNumber + "\",\n" +
-//                "\"address_id\":\"" + addressId + "\"\n}";
-//    }
+    
 }
