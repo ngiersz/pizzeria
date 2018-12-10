@@ -2,19 +2,17 @@ package com.put.bd.pizzeria.controller;
 
 import com.put.bd.pizzeria.domain.Client;
 import com.put.bd.pizzeria.service.ClientService;
-import com.put.bd.pizzeria.utils.JsonConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
-import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/clients")
-@CrossOrigin(origins = "*") // ip Kuby
+@CrossOrigin(origins = "*")
 @Slf4j
 public class ClientController {
 
@@ -26,17 +24,14 @@ public class ClientController {
 
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getAll() {
+    public List<Client> getAll() {
         return service.getAll();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String get(@PathVariable(value = "id") Integer id) {
-        try {
-            return JsonConverter.objectToJson(service.get(id));
-        } catch (EntityNotFoundException e) {
-            return exceptionHandler.handleException(e);
-        }
+    public Client get(@PathVariable(value = "id") Integer id) {
+        // Exception?
+        return service.get(id);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -46,23 +41,17 @@ public class ClientController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public String create(@RequestBody String clientStr) {
-        System.out.println("CLIENT POST: ");
-        System.out.println(clientStr);
-        Client client = (Client) JsonConverter.jsonToClassObject(clientStr, Client.class);
+    public Integer create(@RequestBody Client client) throws SQLException {
+        // Exception?
         try {
-            return service.create(client).toString();
-        } catch (SQLException e) {
-            return exceptionHandler.handleException(e);
-        }  finally {
+        return service.create(client);
+        } finally {
             log.debug("New client was created");
         }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public void update(@PathVariable(value = "id") Integer id, @RequestBody String clientStr) throws SQLException, IOException {
-        System.out.println("UPDATE id: " + id);
-        Client client = (Client) JsonConverter.jsonToClassObject(clientStr, Client.class);
+    public void update(@PathVariable(value = "id") Integer id, @RequestBody Client client) throws SQLException {
         service.update(id, client);
     }
 

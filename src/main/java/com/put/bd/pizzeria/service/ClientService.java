@@ -3,7 +3,6 @@ package com.put.bd.pizzeria.service;
 import com.put.bd.pizzeria.controller.RestResponseEntityExceptionHandler;
 import com.put.bd.pizzeria.domain.Client;
 import com.put.bd.pizzeria.persistance.ClientRepository;
-import com.put.bd.pizzeria.utils.JsonConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.sql.SQLException;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,8 +27,8 @@ public class ClientService {
     @Autowired
     RestResponseEntityExceptionHandler exceptionHandler;
 
-    public String getAll() {
-        return JsonConverter.objectsListToJson(Collections.singletonList(repository.findAll()), "Clients");
+    public List<Client> getAll() {
+        return repository.findAll();
     }
 
     public Client get(Integer id) {

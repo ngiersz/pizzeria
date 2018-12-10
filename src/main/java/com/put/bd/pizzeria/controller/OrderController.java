@@ -1,5 +1,8 @@
 package com.put.bd.pizzeria.controller;
 
+import com.put.bd.pizzeria.domain.DishMenu;
+import com.put.bd.pizzeria.domain.Order;
+import com.put.bd.pizzeria.domain.OrderedDish;
 import com.put.bd.pizzeria.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
@@ -22,43 +26,33 @@ public class OrderController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getAll() {
+    public List<Order> getAll() {
         return service.getAll();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String get(@PathVariable(value = "id") Integer id) {
+    public Order get(@PathVariable(value = "id") Integer id) {
         return service.get(id);
     }
 
-//    @RequestMapping(method = RequestMethod.GET)
-//    public String getClientOrders(@RequestParam(value = "filter[clientId]") Integer clientId) {
-//        System.out.println("client id = " + clientId);
-//        if (clientId == null) {
-//            return service.getAll();
-//        }
-//        return service.getClientsOrders(clientId);
-//    }
+    @RequestMapping(value = "/client/{id}", method = RequestMethod.GET)
+    public List<Order> getClientOrders(@PathVariable(value = "id]") Integer clientId) {
+        return service.getClientsOrders(clientId);
+    }
 
-    // TODO
-//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-//    public void delete(@PathVariable(value = "id") Long id) {
-//        service.delete(id);
-//    }
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable(value = "id") Integer id) {
+        service.delete(id);
+    }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "{id}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public Integer create(@RequestBody String orderStr) {
+    public Integer create(@PathVariable(value = "id") Integer clientId, @RequestBody List<DishMenu> orderedDishes) {
         try {
-            return service.save(orderStr);
+            return service.save(clientId, orderedDishes);
         } finally {
             log.debug("New order was created");
         }
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public void update(@PathVariable(value = "id") Integer id, @RequestBody String orderStr) {
-        service.update(id, orderStr);
     }
 
     @ExceptionHandler({ EntityNotFoundException.class})

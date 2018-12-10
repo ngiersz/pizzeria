@@ -2,16 +2,15 @@ package com.put.bd.pizzeria.controller;
 
 import com.put.bd.pizzeria.domain.DishMenu;
 import com.put.bd.pizzeria.persistance.DishMenuRepository;
-import com.put.bd.pizzeria.utils.JsonConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/dishMenus")
-@CrossOrigin(origins = "*") // ip Kuby
+@CrossOrigin(origins = "*")
 @Slf4j
 public class DishMenuController {
 
@@ -19,21 +18,13 @@ public class DishMenuController {
     DishMenuRepository repository;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getAll() {
-        return JsonConverter.objectsListToJson(Collections.singletonList(repository.findAll()), "DishMenu");
+    public List<DishMenu> getAll() {
+        return repository.findAll();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String get(@PathVariable(value = "id") Integer id) {
-        return JsonConverter.objectToJson(repository.findById(id));
+    public DishMenu get(@PathVariable(value = "id") Integer id) {
+        return repository.findById(id).get();
     }
-
-    @RequestMapping(method = RequestMethod.POST)
-    public void create(@RequestBody String jsonStr) {
-        DishMenu dishMenu = (DishMenu) JsonConverter.jsonToClassObject(jsonStr, DishMenu.class);
-        System.out.println(dishMenu.getId() + " " + dishMenu.getName());
-
-    }
-
 
 }

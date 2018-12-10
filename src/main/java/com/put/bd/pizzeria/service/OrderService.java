@@ -6,12 +6,10 @@ import com.put.bd.pizzeria.domain.OrderedDish;
 import com.put.bd.pizzeria.persistance.DishMenuRepository;
 import com.put.bd.pizzeria.persistance.OrderRepository;
 import com.put.bd.pizzeria.persistance.OrderedDishRepository;
-import com.put.bd.pizzeria.utils.JsonConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -29,31 +27,21 @@ public class OrderService {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    public String getAll() {
-        return JsonConverter.objectsListToJson(Collections.singletonList(orderRepository.findAll()), "Orders");
+    public List<Order> getAll() {
+        return orderRepository.findAll();
     }
 
-    public String get(Integer id) {
-        Order order = orderRepository.getOne(id);
-        return JsonConverter.objectToJson(order);
+    public Order get(Integer id) {
+        return orderRepository.getOne(id);
     }
 
-    public String getClientsOrders(Integer clientId) {
-        return JsonConverter.objectsListToJson(Collections.singletonList(orderRepository.findByClientId(clientId)), "Orders");
+    public List<Order> getClientsOrders(Integer clientId) {
+        return orderRepository.findByClientId(clientId);
     }
 
-    public Integer save(String orderStr) {
-        System.out.println("Dish Menu:");
-        List<DishMenu> menu = dishMenuRepository.findAll();
-        for (DishMenu dish : menu) {
-            System.out.println(dish.getId() + " " + dish.getName());
-        }
-
-        System.out.println("orderStr: " + orderStr);
-        List<DishMenu> orderedDishes = (List<DishMenu>)(List<?>) JsonConverter.jsonListToClassObjectList(orderStr, DishMenu[].class);
-        System.out.println(orderedDishes.toString());
-
-        Integer orderId = createNewOrder();
+    // TODO: zapisywanie orderow
+    public Integer save(Integer clientId, List<DishMenu> orderedDishes) {
+        Integer orderId = createNewOrder(clientId);
 
         for (DishMenu dish : orderedDishes) {
             OrderedDish orderedDish = new OrderedDish(orderId, dish.getId());
@@ -64,7 +52,8 @@ public class OrderService {
         return orderId;
     }
 
-    private Integer createNewOrder() {
+    // TODO: pobieranie id zapisanego orderu z bd
+    private Integer createNewOrder(Integer clientId) {
 //        Order order = Order.builder().clientId(45).cookId(1).delivererId(1).completed(false).discount(0).deliveryTime(10).build();
 //        String query = "EXEC insert_client '";
 //        try {
@@ -75,8 +64,8 @@ public class OrderService {
         return 32;
     }
 
-    public void update(Integer id, String orderStr) {
-        Order updatedOrder = new Order(id, (Order) JsonConverter.jsonToClassObject(orderStr, Order.class));
-        orderRepository.save(updatedOrder);
+    public void delete(Integer id) {
+        orderRepository.delete(orderRepository.getOne(id));
     }
+
 }

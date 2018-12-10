@@ -37,7 +37,7 @@ public class AddressService {
         return repository.findAll();
     }
 
-    public String create(Address address) {
-        return String.valueOf(repository.save(address).getId());
+    public Integer create(Address address) {
+        return repository.save(address).getId();
     }
 }
