@@ -22,6 +22,13 @@ public class ClientController {
     @Autowired
     RestResponseEntityExceptionHandler exceptionHandler;
 
+    public ClientController(ClientService service, RestResponseEntityExceptionHandler exceptionHandler) throws SQLException {
+        this.service = service;
+        this.exceptionHandler = exceptionHandler;
+        service.create(new Client(1, "Jan", "Kowalski" , "", "", 1, "", 0));
+        service.create(new Client(2, "Janina", "Kowalska" , "", "", 1, "", 0));
+        service.create(new Client(3, "Janek", "Kowalski" , "", "", 1, "", 0));
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     public List<Client> getAll() {
