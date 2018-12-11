@@ -22,7 +22,6 @@ public class ClientController {
     @Autowired
     RestResponseEntityExceptionHandler exceptionHandler;
 
-
     @RequestMapping(method = RequestMethod.GET)
     public List<Client> getAll() {
         return service.getAll();

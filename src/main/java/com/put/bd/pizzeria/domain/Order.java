@@ -51,6 +51,15 @@ public class Order {
                 "}";
     }
 
+    public Order(Integer clientId) {
+        this.clientId = clientId;
+        this.delivererId = 1;
+        this.cookId = 1;
+        this.deliveryTime = 60;
+        this.discount = 0;
+        this.completed = false;
+    }
+
     public Order(Integer id, Order order) {
         this.id = id;
         this.delivererId = order.delivererId;

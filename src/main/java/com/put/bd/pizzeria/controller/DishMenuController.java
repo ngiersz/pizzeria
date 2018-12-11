@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/dishMenus")
+@RequestMapping("/dishes")
 @CrossOrigin(origins = "*")
 @Slf4j
 public class DishMenuController {

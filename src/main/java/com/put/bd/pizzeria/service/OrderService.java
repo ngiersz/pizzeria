@@ -10,6 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 
 @Service
@@ -27,6 +31,9 @@ public class OrderService {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+//    @Autowired
+//    Connection con;
+
     public List<Order> getAll() {
         return orderRepository.findAll();
     }
@@ -39,29 +46,24 @@ public class OrderService {
         return orderRepository.findByClientId(clientId);
     }
 
-    // TODO: zapisywanie orderow
     public Integer save(Integer clientId, List<DishMenu> orderedDishes) {
         Integer orderId = createNewOrder(clientId);
-
+        System.out.println("Order id: " + orderId);
         for (DishMenu dish : orderedDishes) {
             OrderedDish orderedDish = new OrderedDish(orderId, dish.getId());
-            System.out.println("Ordered dish: ");
-            System.out.println(dish.getId() + " " + dish.getName() + "; orderId: " + orderId);
             orderedDishRepository.save(orderedDish);
         }
         return orderId;
     }
 
-    // TODO: pobieranie id zapisanego orderu z bd
-    private Integer createNewOrder(Integer clientId) {
-//        Order order = Order.builder().clientId(45).cookId(1).delivererId(1).completed(false).discount(0).deliveryTime(10).build();
-//        String query = "EXEC insert_client '";
-//        try {
-//            jdbcTemplate.execute(query);
-//        } catch (DataAccessException e) {
-//            System.out.println("Cannot add new client. " + e.getMostSpecificCause());
-//        }
-        return 32;
+    // TODO: pobieranie orderID z bd
+    private Integer createNewOrder(Integer clientId){
+        Order order = new Order(clientId);
+        return orderRepository.save(order).getId();
+//        CallableStatement cStmt = con.prepareCall("EXEC F_add_order");
+//        cStmt.registerOutParameter(1,Types.INTEGER);
+//        cStmt.execute();
+//        return cStmt.getInt(1);
     }
 
     public void delete(Integer id) {
