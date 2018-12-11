@@ -27,6 +27,15 @@ public class ClientService {
     @Autowired
     RestResponseEntityExceptionHandler exceptionHandler;
 
+    public ClientService(ClientRepository clientRepository, JdbcTemplate jdbcTemplate, RestResponseEntityExceptionHandler exceptionHandler) {
+        this.repository = clientRepository;
+        this.jdbcTemplate = jdbcTemplate;
+        this.exceptionHandler = exceptionHandler;
+        repository.save(new Client(1, "Jan", "Kowalski" , "", "", 1, "", 0));
+        repository.save(new Client(2, "Janina", "Kowalska" , "", "", 1, "", 0));
+        repository.save(new Client(3, "Janek", "Kowalski" , "", "", 1, "", 0));
+    }
+
     public List<Client> getAll() {
         return repository.findAll();
     }

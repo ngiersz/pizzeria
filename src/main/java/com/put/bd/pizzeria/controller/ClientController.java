@@ -5,6 +5,7 @@ import com.put.bd.pizzeria.service.ClientService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
@@ -22,20 +23,14 @@ public class ClientController {
     @Autowired
     RestResponseEntityExceptionHandler exceptionHandler;
 
-    public ClientController(ClientService service, RestResponseEntityExceptionHandler exceptionHandler) throws SQLException {
-        this.service = service;
-        this.exceptionHandler = exceptionHandler;
-        service.create(new Client(1, "Jan", "Kowalski" , "", "", 1, "", 0));
-        service.create(new Client(2, "Janina", "Kowalska" , "", "", 1, "", 0));
-        service.create(new Client(3, "Janek", "Kowalski" , "", "", 1, "", 0));
-    }
-
     @RequestMapping(method = RequestMethod.GET)
+    @PreAuthorize("hasRole('ADMIN')")
     public List<Client> getAll() {
         return service.getAll();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('USER')")
     public Client get(@PathVariable(value = "id") Integer id) {
         // Exception?
         return service.get(id);
