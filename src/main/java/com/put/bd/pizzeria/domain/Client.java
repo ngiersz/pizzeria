@@ -54,16 +54,9 @@ public class Client {
         this.amountOfOrders = client.amountOfOrders;
     }
 
-//    @Override
-//    public String toString()
-//    {
-//        return "{\n" +
-//                "\"id\":\"" + id + "\",\n" +
-//                "\"first_name\":\"" + firstName + "\",\n" +
-//                "\"last_name\":\"" + lastName + "\",\n" +
-//                "\"login\":\"" + login + "\",\n" +
-//                "\"email\":\"" + email + "\",\n" +
-//                "\"phone_number\":\"" + phoneNumber + "\",\n" +
-//                "\"address_id\":\"" + addressId + "\"\n}";
-//    }
+    @Override
+    public String toString()
+    {
+        return id + ": " + firstName + " " + lastName + "; amountOfOrders: " + amountOfOrders;
+    }
 }

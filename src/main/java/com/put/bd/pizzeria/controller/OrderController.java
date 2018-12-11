@@ -48,7 +48,7 @@ public class OrderController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public Integer create(@PathVariable(value = "id") Integer clientId, @RequestBody List<DishMenu> orderedDishes) {
+    public Integer create(@PathVariable(value = "id") Integer clientId, @RequestBody List<DishMenu> orderedDishes) throws Exception {
         try {
             return service.save(clientId, orderedDishes);
         } finally {

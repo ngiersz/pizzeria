@@ -27,12 +27,6 @@ public class ClientService {
     @Autowired
     RestResponseEntityExceptionHandler exceptionHandler;
 
-    public ClientService(ClientRepository repository, JdbcTemplate jdbcTemplate, RestResponseEntityExceptionHandler exceptionHandler) {
-        repository = repository;
-        jdbcTemplate = jdbcTemplate;
-        exceptionHandler = exceptionHandler;
-    }
-
     public List<Client> getAll() {
         return repository.findAll();
     }
@@ -56,7 +50,8 @@ public class ClientService {
         System.out.println(query);
 
         try {
-            jdbcTemplate.execute(query);
+//            jdbcTemplate.execute(query);
+            repository.save(new Client(id, client));
         } catch (DataAccessException e) {
             throw new SQLException("Cannot update client. " + e.getMostSpecificCause());
         }
