@@ -1,4 +1,4 @@
-package com.put.bd.pizzeria.security;
+package com.put.bd.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

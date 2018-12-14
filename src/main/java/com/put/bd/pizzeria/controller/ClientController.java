@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/clients")
+@PreAuthorize("ROLE_ADMIN")
 @CrossOrigin(origins = "*")
 @Slf4j
 public class ClientController {
