@@ -1,7 +1,6 @@
 package com.put.bd.pizzeria.controller;
 
 import com.put.bd.pizzeria.domain.DishMenu;
-import com.put.bd.pizzeria.persistance.DishMenuRepository;
 import com.put.bd.pizzeria.service.DishMenuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +28,9 @@ public class DishMenuController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public void update(@PathVariable(value = "id") Integer id, @RequestBody DishMenu dishMenu) throws Exception {
-        service.update(id, dishMenu);
-
+    public void update(@PathVariable(value = "id") Integer id, @RequestBody DishMenu dishMenu)  {
+        System.out.println(dishMenu.getId() + " " + dishMenu.getName() + " " + dishMenu.getQuantity());
+        service.updateNameAndPrice(id, dishMenu);
     }
 
 }

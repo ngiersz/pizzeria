@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -40,5 +39,13 @@ public class DishMenu {
         this.price = dishMenu.price;
         this.quantity = dishMenu.quantity;
         this.lastModification = dishMenu.lastModification + 1;
+    }
+
+    public DishMenu(Integer id, String name, BigDecimal price, DishMenu dishMenu) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.quantity = dishMenu.quantity;
+        this.lastModification = dishMenu.lastModification;
     }
 }
