@@ -1,54 +1,6 @@
---drop trigger insert_update_client
-CREATE TRIGGER insert_update_client
-ON Client 
-AFTER INSERT, UPDATE
-AS
-  BEGIN
-    DECLARE @id int
-    DECLARE @first_name NVARCHAR(100)
-    DECLARE @last_name NVARCHAR(100)
-	DECLARE @email NVARCHAR(100)
-	DECLARE @phone_number NVARCHAR(12)
-	DECLARE @address_id INT
-
-  SELECT @id = id, @first_name = first_name, @last_name = last_name, @email = email, @phone_number = phone_number, @address_id = address_id 
-  FROM INSERTED
-
-  DECLARE @msg NVARCHAR(1000) = 'One of the parameters is null: ' + 
-	'first_name = ' + @first_name + ', ' + 
-	'last_name = ' + @last_name + ', ' + 
-	'email = ' + @email + ', ' + 
-	'phone_number = ' + @phone_number
-	
-	
-	IF NOT EXISTS (SELECT id FROM Client WHERE id = @id )
-		BEGIN
-			ROLLBACK TRANSACTION;
-			THROW 51000, 'The Client with specified ID does not exist!', 1
-		END	
-	ELSE IF (@first_name = 'null' OR @last_name = 'null' OR @email = 'null' OR @phone_number = 'null') 
-		BEGIN
-			ROLLBACK TRANSACTION;
-			THROW 51001, @msg, 1
-		END
-	ELSE IF NOT(@email LIKE '%_@__%.__%')
-		BEGIN
-			ROLLBACK TRANSACTION;
-			THROW 51002, 'Bad format of email address!', 1
-		END
-	ELSE IF NOT(@phone_number LIKE '+[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]' OR @phone_number LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
-		BEGIN
-			ROLLBACK TRANSACTION;
-			THROW 51003, 'Bad format of phone number (e.g. +48123456789 or 123456789)!', 1
-		END
-	ELSE IF NOT EXISTS (SELECT id FROM "Address" WHERE id = @address_id )
-		BEGIN
-			ROLLBACK TRANSACTION;
-			THROW 51004, 'The record with specified addressId does not exist!', 1
-		END	
-
-  END  
+USE Pizzeria
 GO
+
 
 --drop trigger insert_client_create_login
 CREATE TRIGGER insert_client_create_login
@@ -56,15 +8,15 @@ ON Client
 AFTER INSERT
 AS
   BEGIN
-	ALTER TABLE Client DISABLE TRIGGER insert_update_client
+	--ALTER TABLE Client DISABLE TRIGGER insert_update_client
 
 		UPDATE Client
 		SET "login" = first_name + "last_name" + CONVERT(NVARCHAR(255),id)
 		WHERE id = @@IDENTITY
 
-	ALTER TABLE Client ENABLE TRIGGER insert_update_client
+	--ALTER TABLE Client ENABLE TRIGGER insert_update_client
   END
-
+GO
 
 --drop trigger insert_order
 CREATE TRIGGER insert_order
@@ -111,34 +63,6 @@ AS
 GO
 
 
-
---drop trigger insert_ordered_dish
-CREATE TRIGGER insert_ordered_dish
-ON ordered_dish
-INSTEAD OF INSERT
-AS
-	BEGIN
-		DECLARE 
-			@dish_menu_id INT,
-			@order_id INT
-
-		SELECT @dish_menu_id = dish_menu_id, @order_id = order_id 
-		FROM INSERTED
-
-		IF NOT EXISTS (SELECT id FROM dish_menu WHERE id = @dish_menu_id )
-			BEGIN
-				ROLLBACK TRANSACTION;
-				THROW 51000, 'The Dish with specified ID does not exist!', 1
-			END
-		ELSE IF NOT EXISTS (SELECT id FROM "order" WHERE id = @order_id )
-			BEGIN
-				ROLLBACK TRANSACTION;
-				THROW 51000, 'The Order with specified ID does not exist!', 1
-			END	
-	END
-
-GO
-
 --drop trigger insert_address_trigger
 CREATE TRIGGER insert_address_trigger
 ON "Address"
@@ -149,8 +73,97 @@ BEGIN
 	IF NOT (@city = 'Poznañ')			
 	BEGIN
 		ROLLBACK TRANSACTION;
-		THROW 51000, 'Only city Poznan is allowed!', 1
+		THROW 51000, 'Obs³ugujemy tylko miasto Poznañ. Przepraszamy :(', 1
 	END
 END
 GO
 
+--drop trigger insert_order_decrease_ingredients
+CREATE TRIGGER insert_order_decrease_ingredients
+ON ordered_dish
+AFTER INSERT
+AS
+	BEGIN
+
+	END
+GO
+
+
+
+
+--drop trigger insert_update_client
+--CREATE TRIGGER insert_update_client
+--ON Client 
+--AFTER INSERT, UPDATE
+--AS
+--  BEGIN
+--    DECLARE @id int
+--    DECLARE @first_name NVARCHAR(100)
+--    DECLARE @last_name NVARCHAR(100)
+--	DECLARE @email NVARCHAR(100)
+--	DECLARE @phone_number NVARCHAR(12)
+--	DECLARE @address_id INT
+
+--  SELECT @id = id, @first_name = first_name, @last_name = last_name, @email = email, @phone_number = phone_number, @address_id = address_id 
+--  FROM INSERTED
+
+--  DECLARE @msg NVARCHAR(1000) = 'One of the parameters is null: ' + 
+--	'first_name = ' + @first_name + ', ' + 
+--	'last_name = ' + @last_name + ', ' + 
+--	'email = ' + @email + ', ' + 
+--	'phone_number = ' + @phone_number
+	
+	
+--	IF NOT EXISTS (SELECT id FROM Client WHERE id = @id )
+--		BEGIN
+--			ROLLBACK TRANSACTION;
+--			THROW 51000, 'The Client with specified ID does not exist!', 1
+--		END	
+--	ELSE IF (@first_name = 'null' OR @last_name = 'null' OR @email = 'null' OR @phone_number = 'null') 
+--		BEGIN
+--			ROLLBACK TRANSACTION;
+--			THROW 51001, @msg, 1
+--		END
+--	ELSE IF NOT(@email LIKE '%_@__%.__%')
+--		BEGIN
+--			ROLLBACK TRANSACTION;
+--			THROW 51002, 'Bad format of email address!', 1
+--		END
+--	ELSE IF NOT(@phone_number LIKE '+[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]' OR @phone_number LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]')
+--		BEGIN
+--			ROLLBACK TRANSACTION;
+--			THROW 51003, 'Bad format of phone number (e.g. +48123456789 or 123456789)!', 1
+--		END
+--	ELSE IF NOT EXISTS (SELECT id FROM "Address" WHERE id = @address_id )
+--		BEGIN
+--			ROLLBACK TRANSACTION;
+--			THROW 51004, 'The record with specified addressId does not exist!', 1
+--		END	
+
+--  END  
+--GO
+--drop trigger insert_ordered_dish
+--CREATE TRIGGER insert_ordered_dish
+--ON ordered_dish
+--INSTEAD OF INSERT
+--AS
+--	BEGIN
+--		DECLARE 
+--			@dish_menu_id INT,
+--			@order_id INT
+
+--		SELECT @dish_menu_id = dish_menu_id, @order_id = order_id 
+--		FROM INSERTED
+
+--		IF NOT EXISTS (SELECT id FROM dish_menu WHERE id = @dish_menu_id )
+--			BEGIN
+--				ROLLBACK TRANSACTION;
+--				THROW 51000, 'The Dish with specified ID does not exist!', 1
+--			END
+--		ELSE IF NOT EXISTS (SELECT id FROM "order" WHERE id = @order_id )
+--			BEGIN
+--				ROLLBACK TRANSACTION;
+--				THROW 51000, 'The Order with specified ID does not exist!', 1
+--			END	
+--	END
+--GO
