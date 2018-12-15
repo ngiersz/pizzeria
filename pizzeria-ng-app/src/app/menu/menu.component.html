@@ -1,0 +1,25 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<table style="width:100%" class="table-bordered tabl" style="margin-top: 28px;">
+  <thead bgcolor="#cccccc">
+    <tr>
+      <th>ID</th>
+      <th>Nazwa</th>
+      <th>Cena</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let dish of dishes" class="list-group-item">
+      <tr>
+        <td>{{dish.id}} </td>
+        <td>{{dish.name}}</td>
+        <td>{{dish.price}}</td>
+         <td> <button type="button"
+                  (click)="addToCart(dish)"
+                      style="font-size:6px"><i class="material-icons">add_shopping_cart</i></button></td>
+
+      </tr>
+    </ng-container>
+  </tbody>
+</table>

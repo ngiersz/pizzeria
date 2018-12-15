@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div class="offset-3">
+      <div class="col-md-6">
+        <!-- Firstname -->
+
+        <table border="7" style="margin-top: 20px;" cellpadding="5">
+          <tr>
+            <td colspan="2" align="center"><b>Dane użytkownika</b></td>
+          </tr>
+          <tr>
+            <th>Imię</th>
+            <td align="center">{{currentClient.firstName}}</td>
+          </tr>
+          <tr>
+            <th>Nazwisko</th>
+            <td align="center">{{currentClient.lastName}}</td>
+          </tr>
+          <tr>
+            <th>E-mail</th>
+            <td align="center">{{currentClient.email}}</td>
+          </tr>
+          <tr>
+            <th>Numer telefonu</th>
+            <td align="center">{{currentClient.phoneNumber}}</td>
+          </tr>
+          <tr>
+            <th>Login</th>
+            <td align="center">{{currentClient.login}}</td>
+          </tr>
+          <tr>
+            <th>Ilość złożonych zamówień</th>
+            <td align="center">{{currentClient.amountOfOrders}}</td>
+          </tr>
+          <tr>
+            <th><a href="http://localhost:8080/addresses/{{currentClient.addressId}}">ADRES</a></th>
+            <td align="center">
+              {{currentClientAddress.city}}
+              <br>{{currentClientAddress.district}}
+              <br>{{currentClientAddress.street}} {{currentClientAddress.apartmentNumber}}
+            </td>
+
+          </tr>
+        </table>
+
+      </div>
+    </div>
+
+
+  </div>

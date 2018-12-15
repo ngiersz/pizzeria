@@ -1,0 +1,35 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+<table style="width:100%" class="table-bordered tabl" style="margin-top: 28px;">
+  <thead bgcolor="#cccccc">
+  <tr>
+    <th>ID</th>
+    <th>Nazwa</th>
+    <th>Cena</th>
+    <th></th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <ng-container *ngFor="let dish of dishesInCart " class="list-group-item">
+    <tr>
+      <td>{{dish.id}} </td>
+      <td>{{dish.name}}</td>
+      <td>{{dish.price}}</td>
+        <button type="button"
+                (click)="removeFromCart(dish)"
+                style="font-size:6px;"><i class="material-icons">delete</i></button>
+
+    </tr>
+  </ng-container>
+  <tr>
+    <td style="background-color: crimson" align="right" colspan="2"><b>CENA</b></td>
+    <td style="background-color: crimson" align="center" colspan="2"><b>{{overallPrice}}</b></td>
+  </tr>
+  </tbody>
+</table>
+
+<button type="button"
+        (click)="makeOrder()"
+        style="font-size:30px; margin-top: 28px;"><i>ZAMÓW</i></button>

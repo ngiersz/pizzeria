@@ -1,0 +1,134 @@
+<div class="container">
+  <div class="row">
+    <div class="offset-3"></div>
+    <div class="col-md-6">
+      <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && addClient()" novalidate class="clients-form">
+        <!-- Firstname -->
+        <div class="form-group">
+          <label for="firstName">Imię</label>
+          <input type="text"
+                 id="firstName"
+                 class="form-control"
+                 name="firstName"
+                 placeholder="Imię"
+                 [(ngModel)]="model.firstName"
+                 #firstName="ngModel"
+                 [ngClass]="{'is-invalid': f.submitted && firstName.invalid}"
+                 required/>
+          <!-- sekcja walidacji-->
+          <div *ngIf="f.submitted && firstName.invalid" class="invalid-input">
+            <!-- indywidualne sprawdzanie poprawności -->
+            <div *ngIf="firstName.errors?.required">Imię nie może być puste</div>
+          </div>
+        </div>
+
+        <!-- Lastname -->
+        <div class="form-group">
+          <label for="lastName">Nazwisko</label>
+          <input type="text"
+                 id="lastName"
+                 class="form-control"
+                 name="lastName"
+                 placeholder="Nazwisko"
+                 [(ngModel)]="model.lastName"
+                 #lastName="ngModel"
+                 [ngClass]="{'is-invalid': f.submitted && lastName.invalid}"
+                 required/>
+          <!-- sekcja walidacji-->
+          <div *ngIf="f.submitted && lastName.invalid" class="invalid-input">
+            <!-- indywidualne sprawdzanie poprawności -->
+            <div *ngIf="lastName.errors?.required">Nazwisko nie może być puste</div>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text"
+                 id="email"
+                 class="form-control"
+                 name="email"
+                 placeholder="Email"
+                 [(ngModel)]="model.email"
+                 #email="ngModel"
+                 [ngClass]="{'is-invalid': f.submitted && email.invalid}"
+                 required email/>
+          <!-- sekcja walidacji-->
+          <div *ngIf="f.submitted && email.invalid" class="invalid-input">
+            <!-- indywidualne sprawdzanie poprawności -->
+            <div *ngIf="email.errors?.required">E-mail nie może być pusty</div>
+            <div *ngIf="email.errors?.email">Zły format adresu E-mail</div>
+
+          </div>
+        </div>
+
+        <!-- phoneNumber -->
+        <div class="form-group">
+          <label for="phoneNumber">Numer telefonu</label>
+          <input type="text"
+                 id="phoneNumber"
+                 class="form-control"
+                 name="phoneNumber"
+                 placeholder="Numer telefonu"
+                 [(ngModel)]="model.phoneNumber"
+                 #phoneNumber="ngModel"
+                 [ngClass]="{'is-invalid': f.submitted && phoneNumber.invalid}"/>
+          <!-- sekcja walidacji-->
+          <div *ngIf="f.submitted && phoneNumber.invalid" class="invalid-input">
+            <!-- indywidualne sprawdzanie poprawności -->
+            <div *ngIf="phoneNumber.errors?.required" >Numer telefonu nie może być pusty</div>
+            <div *ngIf="phoneNumber.errors?.phone">Zły format numeru telefonu</div>
+          </div>
+        </div>
+
+        <!-- AddressId -->
+        <div class="form-group">
+          <label for="addressId">Address ID</label>
+          <input type="text"
+                 id="addressId"
+                 class="form-control"
+                 name="addressId"
+                 placeholder="Address ID"
+                 [(ngModel)]="model.addressId"/>
+        </div>
+
+        <button type="submit" class="btn btn-block pull-right">
+          <i class="btn"></i>
+          <span>Dodaj klienta</span>
+        </button>
+      </form>
+    </div>
+  </div>
+  <table style="width:100%" class="table-bordered tabl" style="margin-top: 28px;">
+<thead bgcolor="#cccccc">
+    <tr>
+      <th>ID</th>
+      <th>Imię</th>
+      <th>Nazwisko</th>
+      <th>Email</th>
+      <th>Numer telefonu</th>
+      <th>Login</th>
+      <th>Ilość zamówień</th>
+    </tr>
+</thead>
+    <tbody>
+    <ng-container *ngFor="let client of clients" class="list-group-item">
+      <tr>
+        <td>{{client.id}}</td>
+        <td>{{client.firstName}}</td>
+        <td>{{client.lastName}}</td>
+        <td>{{client.email}}</td>
+        <td>{{client.phoneNumber}}</td>
+        <td>{{client.login}}</td>
+        <td>{{client.amountOfOrders}}</td>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+
+  <div class="row" style="margin-top: 28px;">
+    <!-- Klienci -->
+
+  </div>
+
+  </div>

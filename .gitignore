@@ -31,3 +31,4 @@ target/*
 mvnw
 
 */application.properties
+*/target/
