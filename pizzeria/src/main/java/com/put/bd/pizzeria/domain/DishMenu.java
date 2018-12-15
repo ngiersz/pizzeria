@@ -27,25 +27,10 @@ public class DishMenu {
     @Column(name = "price", columnDefinition = "MONEY")
     BigDecimal price;
 
-    @Column(name = "last_modification", columnDefinition = "INT")
-    Integer lastModification;
-
-    @Column(name = "quantity", columnDefinition = "INT")
-    Integer quantity;
-
     public DishMenu(Integer id, DishMenu dishMenu) {
         this.id = id;
         this.name = dishMenu.name;
         this.price = dishMenu.price;
-        this.quantity = dishMenu.quantity;
-        this.lastModification = dishMenu.lastModification + 1;
     }
 
-    public DishMenu(Integer id, String name, BigDecimal price, DishMenu dishMenu) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.quantity = dishMenu.quantity;
-        this.lastModification = dishMenu.lastModification;
-    }
 }

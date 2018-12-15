@@ -22,9 +22,6 @@ public class ClientService {
     ClientRepository repository;
 
     @Autowired
-    JdbcTemplate jdbcTemplate;
-
-    @Autowired
     RestResponseEntityExceptionHandler exceptionHandler;
 
     public List<Client> getAll() {
@@ -40,17 +37,7 @@ public class ClientService {
     }
 
     public void update(Integer id, Client client) throws SQLException {
-        String query = "EXEC update_client " +
-                id + ", '" +
-                client.getFirstName() + "', '" +
-                client.getLastName() + "', '" +
-                client.getEmail() + "', '" +
-                client.getPhoneNumber() + "', " +
-                client.getAddressId();
-        System.out.println(query);
-
         try {
-//            jdbcTemplate.execute(query);
             repository.save(new Client(id, client));
         } catch (DataAccessException e) {
             throw new SQLException("Cannot update client. " + e.getMostSpecificCause());
@@ -58,18 +45,11 @@ public class ClientService {
     }
 
     public Integer create(Client client) throws SQLException {
-        String query = "EXEC insert_client '" +
-                client.getFirstName() + "', '" +
-                client.getLastName() + "', '" +
-                client.getEmail() + "', '" +
-                client.getPhoneNumber() + "', " +
-                client.getAddressId();
         try {
-            jdbcTemplate.execute(query);
-        } catch (DataAccessException e) {
-            throw new SQLException("Cannot add new client. " + e.getMostSpecificCause());
+            return repository.save(client).getId();
+        } catch (Exception e) {
+            throw new SQLException("Cannot add new client. " + e.getMessage());
         }
-        return repository.findByFirstNameAndLastName(client.getFirstName(), client.getLastName()).get(0).getId();
     }
 
     public void delete(Integer id) throws EntityNotFoundException {
