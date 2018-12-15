@@ -2,6 +2,7 @@ package com.put.bd.pizzeria.service;
 
 import com.put.bd.pizzeria.domain.DishMenu;
 import com.put.bd.pizzeria.persistance.DishMenuRepository;
+import com.put.bd.pizzeria.service.ingredient.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +13,17 @@ import java.util.List;
 @Service
 public class DishMenuService {
 
-    @Autowired
     DishMenuRepository repository;
+
+    IngredientService ingredientService;
+
+    public DishMenuService(DishMenuRepository dishMenuRepository) {
+        repository = dishMenuRepository;
+        List<DishMenu> dishes = getAll();
+        for (DishMenu dish : dishes) {
+//            dish.setIngredients(ingredientService.getDishIngredients(dish.getId()));
+        }
+    }
 
 
     public List<DishMenu> getAll() {
@@ -29,7 +39,7 @@ public class DishMenuService {
     }
 
     public void updateNameAndPrice(Integer id, DishMenu dishMenu) {
-        DishMenu updatedDish = new DishMenu(id, dishMenu.getName(), dishMenu.getPrice());
+        DishMenu updatedDish = new DishMenu(id, dishMenu.getName(), dishMenu.getPrice(), dishMenu.getIngredients());
         repository.save(updatedDish);
     }
 

@@ -2,6 +2,7 @@ package com.put.bd.pizzeria.domain.ingredient;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
@@ -15,9 +16,11 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Ingredient {
 
     @Id
+    @Column(name = "id")
     Integer id;
 
     @Column(name = "name", columnDefinition = "NVARCHAR(100)")
