@@ -32,3 +32,5 @@ mvnw
 
 */application.properties
 */target/
+
+.vs/*

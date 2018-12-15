@@ -29,20 +29,16 @@ public class DishMenuService {
     }
 
     public void updateNameAndPrice(Integer id, DishMenu dishMenu) {
-        DishMenu updatedDish = new DishMenu(id, dishMenu.getName(), dishMenu.getPrice(), get(id));
+        DishMenu updatedDish = new DishMenu(id, dishMenu.getName(), dishMenu.getPrice());
         repository.save(updatedDish);
     }
 
     @Transactional
-    public void update(Integer id, DishMenu dish) throws Exception {
+    public void update(Integer id, DishMenu dish) {
         DishMenu updatedDish = repository.findById(id).get();
         if(updatedDish == null ){
             throw new EntityNotFoundException("DishMenu " + id + " doesn't exist");
         }
-        if (!dish.getLastModification().equals(updatedDish.getLastModification())) {
-            throw new Exception("Cannot modify dish menu " + id + ". Data has changed. ");
-        }
-        dish.setQuantity(updatedDish.getQuantity());
         repository.save(new DishMenu(id, dish));
     }
 

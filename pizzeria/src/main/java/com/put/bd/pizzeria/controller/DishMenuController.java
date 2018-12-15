@@ -29,7 +29,6 @@ public class DishMenuController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public void update(@PathVariable(value = "id") Integer id, @RequestBody DishMenu dishMenu)  {
-        System.out.println(dishMenu.getId() + " " + dishMenu.getName() + " " + dishMenu.getQuantity());
         service.updateNameAndPrice(id, dishMenu);
     }
 

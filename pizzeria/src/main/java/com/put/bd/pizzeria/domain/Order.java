@@ -2,6 +2,7 @@ package com.put.bd.pizzeria.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.persistence.*;
 
@@ -20,8 +21,9 @@ public class Order {
     @Column(name = "id")
     Integer id;
 
-    @Column(name = "client_id")
-    Integer clientId;
+    @ManyToOne(targetEntity = Client.class)
+    @JoinColumn(name = "client_id")
+    Client client;
 
     @Column(name = "deliverer_id")
     Integer delivererId;
@@ -38,35 +40,14 @@ public class Order {
     @Column(name = "completed")
     Boolean completed;
 
-    @Override
-    public String toString() {
-        return "{\n" +
-                "  \"id\": \"" + this.id + "\",\n" +
-                "  \"clientId\": \"" + this.clientId + "\",\n" +
-                "  \"delivererId\": \"" + this.delivererId + "\",\n" +
-                "  \"cookId\": \"" + this.cookId + "\",\n" +
-                "  \"deliveryTime\": \"" + this.deliveryTime + "\",\n" +
-                "  \"discount\": \"" + this.discount + "\",\n" +
-                "  \"completed\": \"" + this.completed + "\"\n" +
-                "}";
-    }
-
     public Order(Integer clientId) {
-        this.clientId = clientId;
-        this.delivererId = 1;
-        this.cookId = 1;
-        this.deliveryTime = 60;
-        this.discount = 0;
-        this.completed = false;
-    }
-
-    public Order(Integer id, Order order) {
-        this.id = id;
-        this.delivererId = order.delivererId;
-        this.cookId = order.cookId;
-        this.deliveryTime = order.deliveryTime;
-        this.discount = order.discount;
-        this.completed = order.completed;
+//        this.client = client;
+//        this.delivererId = 1;
+//        this.cookId = 1;
+//        this.deliveryTime = 60;
+//        this.discount = 0;
+//        this.completed = false;
+        throw new NotImplementedException();
     }
 
 }

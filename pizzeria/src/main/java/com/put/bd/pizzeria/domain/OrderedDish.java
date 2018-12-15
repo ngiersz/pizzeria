@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.persistence.*;
 
@@ -20,15 +21,18 @@ public class OrderedDish {
     @Column(name = "id")
     Integer id;
 
-    @Column(name = "order_id")
-    Integer orderId;
+    @ManyToOne(targetEntity = Order.class)
+    @JoinColumn(name = "order_id")
+    Order order;
 
-    @Column(name = "dish_menu_id")
+    @ManyToOne(targetEntity = DishMenu.class)
+    @JoinColumn(name = "dish_menu_id")
     Integer dishMenuId;
 
-    public OrderedDish(Integer orderId, Integer dishMenuId) {
-        this.orderId = orderId;
-        this.dishMenuId = dishMenuId;
+    public OrderedDish(Integer orderId, Integer dishMenuId) throws NotImplementedException {
+//        this.orderId = orderId;
+//        this.dishMenuId = dishMenuId;
+        throw new NotImplementedException();
     }
 
 }
