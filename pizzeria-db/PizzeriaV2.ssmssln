@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# SQL Server Management Studio Solution File, Format Version 18.00
+VisualStudioVersion = 15.0.27428.2015
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "PizzeriaV2", "PizzeriaV2\PizzeriaV2.ssmssqlproj", "{929EE35B-3BA9-465F-A805-1BF664E07F19}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Default|Default = Default|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{929EE35B-3BA9-465F-A805-1BF664E07F19}.Default|Default.ActiveCfg = Default
+		{DD0BD77B-95EC-4CF4-912D-AEF3B4C72074}.Default|Default.ActiveCfg = Default
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {51DF9B9D-133B-4434-BD44-FE5A57C33912}
+	EndGlobalSection
+EndGlobal

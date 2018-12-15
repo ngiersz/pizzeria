@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<SqlWorkbenchSqlProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="PizzeriaV2">
+  <Items>
+    <LogicalFolder Name="Connections" Type="2" Sorted="true">
+      <Items>
+        <ConnectionNode Name="DESKTOP-R53599S\SQLEXPRESS2:DESKTOP-R53599S\marci">
+          <Created>2018-12-11T23:46:38.6697393+01:00</Created>
+          <Type>SQL</Type>
+          <Server>DESKTOP-R53599S\SQLEXPRESS2</Server>
+          <UserName />
+          <Authentication>Windows Authentication</Authentication>
+          <InitialDB />
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
+        <ConnectionNode Name="DESKTOP-R53599S\SQLEXPRESS2:test">
+          <Created>2018-12-11T15:08:02.3397497+01:00</Created>
+          <Type>SQL</Type>
+          <Server>DESKTOP-R53599S\SQLEXPRESS2</Server>
+          <UserName>test</UserName>
+          <Authentication>SQL</Authentication>
+          <InitialDB />
+          <LoginTimeout>30</LoginTimeout>
+          <ExecutionTimeout>0</ExecutionTimeout>
+          <ConnectionProtocol>NotSpecified</ConnectionProtocol>
+          <ApplicationName>Microsoft SQL Server Management Studio - Query</ApplicationName>
+        </ConnectionNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Queries" Type="0" Sorted="true">
+      <Items>
+        <FileNode Name="procedury_i_funkcje.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-R53599S\SQLEXPRESS2:False:test</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-R53599S\SQLEXPRESS2</AssociatedConnSrvName>
+          <AssociatedConnUserName>test</AssociatedConnUserName>
+          <FullPath>procedury_i_funkcje.sql</FullPath>
+        </FileNode>
+        <FileNode Name="tabele.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-R53599S\SQLEXPRESS2:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-R53599S\SQLEXPRESS2</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>tabele.sql</FullPath>
+        </FileNode>
+        <FileNode Name="triggery.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-R53599S\SQLEXPRESS2:False:test</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-R53599S\SQLEXPRESS2</AssociatedConnSrvName>
+          <AssociatedConnUserName>test</AssociatedConnUserName>
+          <FullPath>triggery.sql</FullPath>
+        </FileNode>
+      </Items>
+    </LogicalFolder>
+    <LogicalFolder Name="Miscellaneous" Type="3" Sorted="true">
+      <Items />
+    </LogicalFolder>
+  </Items>
+</SqlWorkbenchSqlProject>
