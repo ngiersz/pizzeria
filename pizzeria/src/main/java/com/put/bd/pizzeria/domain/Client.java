@@ -3,7 +3,6 @@ package com.put.bd.pizzeria.domain;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Getter
@@ -28,14 +27,14 @@ public class Client {
     String lastName;
 
     @Column(name = "email", columnDefinition = "NVARCHAR(100)")
-//    @NotEmpty
     String email;
 
     @Column(name = "phone_number", columnDefinition = "NVARCHAR(100)")
     String phoneNumber;
 
-    @Column(name = "address_id")
-    int addressId;
+    @ManyToOne(targetEntity = Address.class)
+    @JoinColumn(name = "address_id")
+    Address address;
 
     @Column(name = "login", columnDefinition = "NVARCHAR(100)")
     String login;
@@ -49,7 +48,7 @@ public class Client {
         this.lastName = client.lastName;
         this.email = client.email;
         this.phoneNumber = client.phoneNumber;
-        this.addressId = client.addressId;
+        this.address = client.address;
         this.login = client.login;
         this.amountOfOrders = client.amountOfOrders;
     }
