@@ -79,15 +79,44 @@ END
 GO
 
 --drop trigger insert_order_decrease_ingredients
-CREATE TRIGGER insert_order_decrease_ingredients
+CREATE TRIGGER insert_ordered_dish_decrease_ingredients
 ON ordered_dish
 AFTER INSERT
 AS
 	BEGIN
+		DECLARE @dish_menu_id INT = (SELECT dish_menu_id FROM INSERTED)
+		DECLARE @ingredient_id INT
+		DECLARE db_cursor CURSOR FOR 
+		SELECT  i.id FROM ingredient i
+		JOIN basic_ingredient bi
+		ON i.id = bi.id 
+		WHERE dish_menu_id = @dish_menu_id
+
+	
+	OPEN db_cursor  
+	FETCH NEXT FROM db_cursor INTO @ingredient_id
+
+	WHILE @@FETCH_STATUS = 0  
+	BEGIN  
+		DECLARE @name NVARCHAR(100)
+		SELECT @name = "name" FROM ingredient WHERE id = @ingredient_id
+
+		DECLARE @msg NVARCHAR(1000) = 'Brak sk³adnika: ' + @name + '. Przepraszamy.'
+		if ((SELECT quantity_in_storeroom FROM ingredient WHERE id = @ingredient_id) = 0)
+			THROW 51002, @msg, 1
+
+		UPDATE ingredient
+		SET quantity_in_storeroom = quantity_in_storeroom - 1
+		WHERE id = @ingredient_id
+
+		FETCH NEXT FROM db_cursor INTO @ingredient_id
+	END 
+
+	CLOSE db_cursor  
+	DEALLOCATE db_cursor 
 
 	END
 GO
-
 
 
 
