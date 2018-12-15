@@ -16,7 +16,6 @@ export class ApiService {
   private  GET_ADDRESS_URL = `${this.BASE_URL}\\addresses\\`;
   private  ALL_DISHES_URL = `${this.BASE_URL}\\dishes`;
   private  MAKE_ORDER_URL = `${this.BASE_URL}\\orders\\`;
-  private  UPDATE_DISH_URL = `${this.BASE_URL}\\dishes\\`;
 
 
   constructor(private http: HttpClient) { }
@@ -43,9 +42,5 @@ export class ApiService {
 
   makeOrder(id: number, dishesInCart: DishModel[])  : Observable<any>{
     return this.http.post(this.MAKE_ORDER_URL + id, dishesInCart);
-  }
-
-  updateDish(dish: DishModel) : Observable<any>{
-    return this.http.put(this.UPDATE_DISH_URL + 1, dish);
   }
 }

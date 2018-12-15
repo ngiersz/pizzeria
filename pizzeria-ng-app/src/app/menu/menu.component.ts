@@ -10,21 +10,11 @@ import {ClientModel} from "../clients/clients.component";
 })
 export class MenuComponent implements OnInit {
   dishes: DishModel[] = [];
-  model: DishModel[] = [{
-    id: 0,
-    lastModification: 0,
-    price: 0,
-    name: ''
-  }];
 
   constructor(private apiService: ApiService) { }
-  dishesInCart: DishModel[] = [];
+
   ngOnInit() {
     this.getAllDishes();
-    if (JSON.parse(localStorage.getItem("cart")) == null)
-    {
-      localStorage.setItem("cart", JSON.stringify(this.dishesInCart));
-    }
 
   }
 
@@ -38,9 +28,15 @@ export class MenuComponent implements OnInit {
       }
     );
   }
-
+  model: DishModel[] = [{
+    id: 0,
+    lastModification: 0,
+    price: 0,
+    name: ''
+  }];
 
   addToCart(dish: DishModel){
+    localStorage.setItem("cart", JSON.stringify(this.model));
     let temp;
     temp = JSON.parse(localStorage.getItem("cart"));
     temp.push(dish);

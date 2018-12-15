@@ -12,7 +12,6 @@ import  {HttpClientModule} from "@angular/common/http";
 import { HomeComponent } from './home/home.component';
 import { MakeOrderComponent } from './make-order/make-order.component';
 import { MenuComponent } from './menu/menu.component';
-import { UpdateMenuComponent } from './update-menu/update-menu.component';
 
 const appRoutes :Routes = [
   {
@@ -36,10 +35,6 @@ const appRoutes :Routes = [
     component: MakeOrderComponent,
   },
   {
-    path:'updateDish',
-    component: UpdateMenuComponent,
-  },
-  {
     path:'',
     component: ClientsComponent
   },
@@ -59,7 +54,6 @@ const appRoutes :Routes = [
     HomeComponent,
     MakeOrderComponent,
     MenuComponent,
-    UpdateMenuComponent,
   ],
   imports: [
     BrowserModule,
