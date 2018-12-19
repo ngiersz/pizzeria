@@ -23,8 +23,8 @@
 //    Integer id;
 //
 //    @ManyToOne
-//    @JoinColumn(name = "ordered_dish_id", columnDefinition = "INT")
-//    OrderedDish orderedDish;
+////    @JoinColumn(name = "ordered_dish_id", columnDefinition = "INT")
+////    OrderedDish orderedDish;
 //
 ////    @Column(name = "ingredient_id", columnDefinition = "INT")
 ////    Integer ingredientId;

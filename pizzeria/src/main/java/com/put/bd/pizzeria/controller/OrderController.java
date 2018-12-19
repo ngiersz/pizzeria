@@ -52,9 +52,9 @@ public class OrderController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public Integer create(@PathVariable(value = "id") Integer clientId, @RequestBody List<DishMenu> orderedDishes) throws Exception {
+    public Integer create(@PathVariable(value = "id") Integer clientId, @RequestBody Order order) throws Exception {
         try {
-            return service.save(clientId, orderedDishes);
+            return service.save(clientId, order.getOrderedDishes());
         } finally {
             log.debug("New order was created");
         }

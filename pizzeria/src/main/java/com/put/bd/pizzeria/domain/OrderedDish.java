@@ -48,9 +48,10 @@ public class OrderedDish {
             inverseJoinColumns = { @JoinColumn(name = "ingredient_id") })
     private Set<Ingredient> additionalIngredients = new HashSet<>();
 
-    public OrderedDish(Order order, DishMenu dishMenu) {
+    public OrderedDish(Order order, OrderedDish orderedDish) {
         this.order = order;
-        this.dishMenu = dishMenu;
+        this.dishMenu = orderedDish.dishMenu;
+        this.additionalIngredients = orderedDish.additionalIngredients;
     }
 
 }

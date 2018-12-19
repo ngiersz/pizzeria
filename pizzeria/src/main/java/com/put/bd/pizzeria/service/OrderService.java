@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Slf4j
@@ -42,8 +43,9 @@ public class OrderService {
     }
 
     @Transactional(rollbackOn = {OrderException.class, SQLException.class, Exception.class})
-    public Integer save(Integer clientId, List<DishMenu> orderedDishes) throws Exception {
-        Integer orderId = createNewOrder(clientId);
+    public Integer save(Integer clientId, Set<OrderedDish> orderedDishes) throws Exception {
+        Client client = clientService.get(clientId);
+        Integer orderId = createNewOrder(client);
         increaseClientsNumberOfOrders(clientId);
         addOrderedDishes(orderId, orderedDishes);
         return orderId;
@@ -56,15 +58,17 @@ public class OrderService {
         System.out.println("updated client: " + clientService.get(clientId).toString());
     }
 
-    private void addOrderedDishes(Integer orderId, List<DishMenu> orderedDishes) {
-        for (DishMenu dish : orderedDishes) {
-            OrderedDish orderedDish = new OrderedDish(orderId, dish.getId());
+    private void addOrderedDishes(Integer orderId, Set<OrderedDish> orderedDishes) {
+        for (OrderedDish dish : orderedDishes) {
+            System.out.println("wysłane przez klienta: " + dish.getId() + " " + dish.getDishMenu() + " " + dish.getOrder() + " " + dish.getAdditionalIngredients());
+            OrderedDish orderedDish = new OrderedDish(get(orderId), dish);
+            System.out.println("dodawane do bazy danych: " + orderedDish.getId() + " " + orderedDish.getDishMenu() + " " + orderedDish.getOrder() + " " + orderedDish.getAdditionalIngredients());
             orderedDishRepository.save(orderedDish);
         }
     }
 
-    private Integer createNewOrder(Integer clientId){
-        Order order = new Order(clientId);
+    private Integer createNewOrder(Client client){
+        Order order = new Order(client);
         return orderRepository.save(order).getId();
     }
 
