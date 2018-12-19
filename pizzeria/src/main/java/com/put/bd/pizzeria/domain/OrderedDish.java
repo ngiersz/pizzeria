@@ -21,11 +21,12 @@ public class OrderedDish {
     @Column(name = "id")
     Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false/*, targetEntity = Order.class*/)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+//    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "order_id")
     Order order;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false/*, targetEntity = DishMenu.class*/)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "dish_menu_id")
     DishMenu dishMenuId;
 

@@ -25,9 +25,6 @@ public class OrderService {
     OrderedDishRepository orderedDishRepository;
 
     @Autowired
-    DishMenuService dishMenuService;
-
-    @Autowired
     ClientService clientService;
 
     public List<Order> getAll() {

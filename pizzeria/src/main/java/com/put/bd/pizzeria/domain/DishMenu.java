@@ -10,7 +10,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -33,12 +32,11 @@ public class DishMenu {
     @Column(name = "price", columnDefinition = "MONEY")
     BigDecimal price;
 
-    @ManyToMany(fetch = FetchType.LAZY
-//            cascade = {
-//                    CascadeType.PERSIST,
-//                    CascadeType.MERGE
-//            }
-            )
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
     @JoinTable(name = "basic_ingredient",
             joinColumns = { @JoinColumn(name = "dish_menu_id") },
             inverseJoinColumns = { @JoinColumn(name = "ingredient_id") })

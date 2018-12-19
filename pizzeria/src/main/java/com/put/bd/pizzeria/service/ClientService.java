@@ -1,12 +1,10 @@
 package com.put.bd.pizzeria.service;
 
-import com.put.bd.pizzeria.controller.RestResponseEntityExceptionHandler;
 import com.put.bd.pizzeria.domain.Client;
 import com.put.bd.pizzeria.persistance.ClientRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -20,9 +18,6 @@ public class ClientService {
 
     @Autowired
     ClientRepository repository;
-
-    @Autowired
-    RestResponseEntityExceptionHandler exceptionHandler;
 
     public List<Client> getAll() {
         return repository.findAll();
