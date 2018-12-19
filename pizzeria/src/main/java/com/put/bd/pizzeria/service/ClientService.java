@@ -19,6 +19,9 @@ public class ClientService {
     @Autowired
     ClientRepository repository;
 
+    @Autowired
+    AddressService addressService;
+
     public List<Client> getAll() {
         return repository.findAll();
     }
@@ -40,6 +43,9 @@ public class ClientService {
     }
 
     public Integer create(Client client) throws Exception {
+        if(client.getAddress().getId() == null) {
+            addressService.create(client.getAddress());
+        }
         try {
             return repository.save(client).getId();
         } catch (Exception e) {
