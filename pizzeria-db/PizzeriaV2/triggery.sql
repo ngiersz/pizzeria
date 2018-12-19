@@ -11,7 +11,9 @@ AS
 	--ALTER TABLE Client DISABLE TRIGGER insert_update_client
 
 		UPDATE Client
-		SET "login" = first_name + "last_name" + CONVERT(NVARCHAR(255),id)
+		SET 
+		"login" = first_name + "last_name" + CONVERT(NVARCHAR(255),id),
+		amount_of_orders = 0
 		WHERE id = @@IDENTITY
 
 	--ALTER TABLE Client ENABLE TRIGGER insert_update_client

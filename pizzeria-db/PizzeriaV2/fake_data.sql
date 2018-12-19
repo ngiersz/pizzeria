@@ -94,6 +94,8 @@ select * from "order"
 select * from dish_Menu
 select * from ordered_dish
 select * from basic_ingredient
+select * from additional_ingredient
+
 
 select * from dish_menu d
 JOIN basic_ingredient bi on d.id = bi.dish_menu_id

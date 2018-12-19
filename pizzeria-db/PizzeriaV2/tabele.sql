@@ -11,10 +11,10 @@ GO
 CREATE TABLE "address"
 (
     id INT PRIMARY KEY IDENTITY,
-    street NVARCHAR(100),
-    apartment_number INT,
-	city NVARCHAR(100),
-	district NVARCHAR(100),
+    street NVARCHAR(100) NOT NULL,
+    apartment_number INT NOT NULL,
+	city NVARCHAR(100) NOT NULL,
+	district NVARCHAR(100) NOT NULL,
 	rv rowversion
 );
 
@@ -22,11 +22,11 @@ CREATE TABLE "address"
 CREATE TABLE client
 (
     id INT PRIMARY KEY IDENTITY,
-    first_name NVARCHAR(100),
-    last_name NVARCHAR(100),
+    first_name NVARCHAR(100) NOT NULL,
+    last_name NVARCHAR(100) NOT NULL,
 	"login" NVARCHAR(100),
-	email NVARCHAR(100),
-	phone_number NVARCHAR(12),
+	email NVARCHAR(100) NOT NULL,
+	phone_number NVARCHAR(12) NOT NULL,
 	address_id INT FOREIGN KEY REFERENCES Address(id),
 	amount_of_orders INT DEFAULT 0,
 	rv rowversion
@@ -49,6 +49,7 @@ CREATE TABLE cook
 	rv rowversion
 );
 
+-- drop table "order"
 CREATE TABLE "order"
 (
     id INT PRIMARY KEY IDENTITY NOT NULL,
@@ -73,12 +74,13 @@ CREATE TABLE dish_menu
 --drop table ordered_dish
 CREATE TABLE ordered_dish
 (
-    id INT PRIMARY KEY IDENTITY NOT NULL,
+	id INT PRIMARY KEY IDENTITY NOT NULL,
 	order_id INT FOREIGN KEY REFERENCES "Order"(Id),
 	dish_menu_id INT FOREIGN KEY REFERENCES Dish_Menu(id),
 	rv rowversion
 );
 
+-- drop table ingredient
 CREATE TABLE ingredient
 (
     id INT PRIMARY KEY IDENTITY NOT NULL,
@@ -101,7 +103,7 @@ CREATE TABLE additional_ingredient
 -- drop table basic_Ingredient
 CREATE TABLE basic_ingredient
 (
-    id INT PRIMARY KEY IDENTITY NOT NULL,
+    --id INT PRIMARY KEY IDENTITY NOT NULL,
 	dish_menu_id INT FOREIGN KEY REFERENCES dish_menu(id),
 	ingredient_id INT FOREIGN KEY REFERENCES ingredient(id),
 	rv rowversion
