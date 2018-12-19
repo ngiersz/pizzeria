@@ -1,5 +1,6 @@
 package com.put.bd.pizzeria.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.put.bd.pizzeria.domain.ingredient.Ingredient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +19,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "dish_menu")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class DishMenu {
 
     @Id

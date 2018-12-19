@@ -10,21 +10,21 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "additional_ingredient")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class AdditionalIngredient {
-
-    @Id
-    Integer id;
-
-    @Column(name = "ordered_dish_id", columnDefinition = "INT")
-    Integer orderedDishId;
-
-    @Column(name = "ingredient_id", columnDefinition = "INT")
-    Integer ingredientId;
-
-}
+//@Entity
+//@Table(name = "additional_ingredient")
+//@Getter
+//@Setter
+//@AllArgsConstructor
+//@NoArgsConstructor
+//public class AdditionalIngredient {
+//
+////    @Id
+////    Integer id;
+//
+//    @Column(name = "ordered_dish_id", columnDefinition = "INT")
+//    Integer orderedDishId;
+//
+//    @Column(name = "ingredient_id", columnDefinition = "INT")
+//    Integer ingredientId;
+//
+//}

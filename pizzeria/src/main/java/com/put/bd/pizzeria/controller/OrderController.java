@@ -41,6 +41,11 @@ public class OrderController {
         return service.getClientsOrders(clientId);
     }
 
+    @RequestMapping(value = "/{id}/dishes", method = RequestMethod.GET)
+    public List<OrderedDish> getOrderedDishes(@PathVariable(value = "id") Integer id) {
+        return service.getOrderedDishes(id);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable(value = "id") Integer id) {
         service.delete(id);

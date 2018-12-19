@@ -73,4 +73,7 @@ public class OrderService {
         orderRepository.delete(orderRepository.getOne(id));
     }
 
+    public List<OrderedDish> getOrderedDishes(Integer orderId) {
+        return orderedDishRepository.findAllByOrderId(orderId);
+    }
 }

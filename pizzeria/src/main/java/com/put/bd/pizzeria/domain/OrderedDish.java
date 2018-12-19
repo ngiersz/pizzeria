@@ -21,13 +21,13 @@ public class OrderedDish {
     @Column(name = "id")
     Integer id;
 
-    @ManyToOne(targetEntity = Order.class)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false/*, targetEntity = Order.class*/)
     @JoinColumn(name = "order_id")
     Order order;
 
-    @ManyToOne(targetEntity = DishMenu.class)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false/*, targetEntity = DishMenu.class*/)
     @JoinColumn(name = "dish_menu_id")
-    Integer dishMenuId;
+    DishMenu dishMenuId;
 
     public OrderedDish(Integer orderId, Integer dishMenuId) throws NotImplementedException {
 //        this.orderId = orderId;
