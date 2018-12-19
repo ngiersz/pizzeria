@@ -22,19 +22,19 @@ public class Address {
     Integer id;
 
     @Column(name = "street", columnDefinition = "NVARCHAR(100)")
-    @NotNull
+    @NotNull(message = "Nie podano ulicy.")
     String street;
 
     @Column(name = "apartment_number")
-    @NotNull
+    @NotNull(message = "Nie podano numeru mieszkania.")
     Integer apartmentNumber;
 
     @Column(name = "city", columnDefinition = "NVARCHAR(100)")
-    @NotNull
+    @NotNull(message = "Nie podano miasta.")
     String city;
 
     @Column(name = "district", columnDefinition = "NVARCHAR(100)")
-    @NotNull
+    @NotNull(message = "Nie podano dzielnicy.")
     String district;
 
     public Address(Integer id, Address address) {

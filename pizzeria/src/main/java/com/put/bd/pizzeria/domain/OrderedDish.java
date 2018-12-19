@@ -9,6 +9,7 @@ import lombok.Setter;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,11 +30,13 @@ public class OrderedDish {
 //    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "order_id")
     @JsonIgnore
+    @NotNull(message = "Nie wybrano zamówienia, którego należy dodać danie.")
     Order order;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "dish_menu_id")
-    DishMenu dishMenuId;
+    @NotNull(message = "Nie wybrano dania do dodania.")
+    DishMenu dishMenu;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
@@ -45,10 +48,9 @@ public class OrderedDish {
             inverseJoinColumns = { @JoinColumn(name = "ingredient_id") })
     private Set<Ingredient> additionalIngredients = new HashSet<>();
 
-    public OrderedDish(Integer orderId, Integer dishMenuId) throws NotImplementedException {
-//        this.orderId = orderId;
-//        this.dishMenuId = dishMenuId;
-        throw new NotImplementedException();
+    public OrderedDish(Order order, DishMenu dishMenu) {
+        this.order = order;
+        this.dishMenu = dishMenu;
     }
 
 }

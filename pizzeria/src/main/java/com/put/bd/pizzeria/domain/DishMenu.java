@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,9 +28,11 @@ public class DishMenu {
     Integer id;
 
     @Column(name = "name", columnDefinition = "NVARCHAR(100)")
+    @NotNull(message = "Nie podano nazwy dania.")
     String name;
 
     @Column(name = "price", columnDefinition = "MONEY")
+    @NotNull(message = "Nie podano ceny dania.")
     BigDecimal price;
 
     @ManyToMany(fetch = FetchType.LAZY,
@@ -40,6 +43,7 @@ public class DishMenu {
     @JoinTable(name = "basic_ingredient",
             joinColumns = { @JoinColumn(name = "dish_menu_id") },
             inverseJoinColumns = { @JoinColumn(name = "ingredient_id") })
+    @NotNull(message = "Nie wybrano podstawowych składników dania.")
     private Set<Ingredient> basicIngredients = new HashSet<>();
 
 
