@@ -5,6 +5,9 @@ import lombok.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,12 +26,15 @@ public class Order {
 
     @ManyToOne(targetEntity = Client.class)
     @JoinColumn(name = "client_id")
+    @NotNull
     Client client;
 
     @Column(name = "deliverer_id")
+    @NotNull(message = "Nie wybrano dostawcy.")
     Integer delivererId;
 
     @Column(name = "cook_id")
+    @NotNull(message = "Nie wybrano kucharza.")
     Integer cookId;
 
     @Column(name = "delivery_time")
@@ -40,14 +46,18 @@ public class Order {
     @Column(name = "completed")
     Boolean completed;
 
-    public Order(Integer clientId) {
-//        this.client = client;
-//        this.delivererId = 1;
-//        this.cookId = 1;
-//        this.deliveryTime = 60;
-//        this.discount = 0;
-//        this.completed = false;
-        throw new NotImplementedException();
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "order")
+    private Set<OrderedDish> orderedDishes = new HashSet<>();
+
+    public Order(Client client) {
+        this.client = client ;
+        this.delivererId = 1;
+        this.cookId = 1;
+        this.deliveryTime = null;
+        this.discount = 0;
+        this.completed = false;
     }
 
 }

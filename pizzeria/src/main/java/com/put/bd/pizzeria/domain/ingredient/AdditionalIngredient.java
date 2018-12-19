@@ -2,21 +2,22 @@ package com.put.bd.pizzeria.domain.ingredient;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "additional_ingredient")
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class AdditionalIngredient {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     Integer id;
 
     @Column(name = "ordered_dish_id", columnDefinition = "INT")

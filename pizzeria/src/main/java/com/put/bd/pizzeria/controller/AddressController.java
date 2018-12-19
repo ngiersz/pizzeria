@@ -18,9 +18,6 @@ public class AddressController {
     @Autowired
     AddressService service;
 
-    @Autowired
-    RestResponseEntityExceptionHandler exceptionHandler;
-
     @RequestMapping(method = RequestMethod.GET)
     public List<Address> getAll() {
         return service.getAll();
@@ -36,11 +33,19 @@ public class AddressController {
     public Integer create(@RequestBody Address address) {
         try {
             return service.create(address);
-        } /*catch (SQLException e) {
-            return exceptionHandler.handleException(e);
-        } */ finally {
+        } finally {
             log.debug("New address was created");
         }
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public void update(@PathVariable(value = "id") Integer id, @RequestBody Address address) {
+        service.update(id, address);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable(value = "id") Integer id) {
+        service.delete(id);
     }
 
 }
