@@ -5,6 +5,8 @@ import lombok.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -39,6 +41,11 @@ public class Order {
 
     @Column(name = "completed")
     Boolean completed;
+
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "order")
+    private Set<OrderedDish> orderedDishes = new HashSet<>();
 
     public Order(Integer clientId) {
 //        this.client = client;

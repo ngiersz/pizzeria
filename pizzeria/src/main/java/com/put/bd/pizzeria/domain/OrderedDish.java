@@ -1,5 +1,6 @@
 package com.put.bd.pizzeria.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public class OrderedDish {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
 //    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "order_id")
+    @JsonIgnore
     Order order;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
