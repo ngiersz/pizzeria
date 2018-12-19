@@ -40,7 +40,7 @@ VALUES
 
 INSERT INTO ordered_dish(order_id, dish_menu_id)  
 VALUES 
-( 1, 1)
+( 1, 2)
 
 INSERT INTO ingredient("name", price, quantity_in_storeroom)  
 VALUES 
@@ -85,6 +85,7 @@ VALUES
 -- delete Client
 -- delete ordered_dish
 -- delete dish_menu
+select * from ingredient
 select * from Client
 select * from "Address"
 select * from cook
@@ -92,3 +93,11 @@ select * from deliverer
 select * from "order"
 select * from dish_Menu
 select * from ordered_dish
+select * from basic_ingredient
+select * from additional_ingredient
+
+
+select * from dish_menu d
+JOIN basic_ingredient bi on d.id = bi.dish_menu_id
+JOIN ingredient i on i.id = bi.ingredient_id
+
