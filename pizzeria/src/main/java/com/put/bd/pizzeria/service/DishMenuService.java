@@ -28,7 +28,7 @@ public class DishMenuService {
     }
 
     public void updateNameAndPrice(Integer id, DishMenu dishMenu) {
-        DishMenu updatedDish = new DishMenu(id, dishMenu.getName(), dishMenu.getPrice(), dishMenu.getIngredients());
+        DishMenu updatedDish = new DishMenu(id, dishMenu.getName(), dishMenu.getPrice(), dishMenu.getBasicIngredients());
         repository.save(updatedDish);
     }
 

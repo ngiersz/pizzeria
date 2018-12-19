@@ -40,7 +40,8 @@ public class DishMenu {
     @JoinTable(name = "basic_ingredient",
             joinColumns = { @JoinColumn(name = "dish_menu_id") },
             inverseJoinColumns = { @JoinColumn(name = "ingredient_id") })
-    private Set<Ingredient> ingredients = new HashSet<>();
+    private Set<Ingredient> basicIngredients = new HashSet<>();
+
 
     public DishMenu(Integer id, DishMenu dishMenu) {
         this.id = id;
