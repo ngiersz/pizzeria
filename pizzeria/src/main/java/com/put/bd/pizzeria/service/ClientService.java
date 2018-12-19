@@ -28,22 +28,22 @@ public class ClientService {
         if((event = repository.findById(id)).isPresent()) {
             return event.get();
         }
-        throw new EntityNotFoundException("Client id " + id + " doesn't exist");
+        throw new EntityNotFoundException("Klient o id " + id + " nie istnieje");
     }
 
-    public void update(Integer id, Client client) throws SQLException {
+    public void update(Integer id, Client client) throws Exception {
         try {
             repository.save(new Client(id, client));
         } catch (DataAccessException e) {
-            throw new SQLException("Cannot update client. " + e.getMostSpecificCause());
+            throw new Exception("Nie można zaktualizować danych klienta o id " + id + ". " + e.getMostSpecificCause());
         }
     }
 
-    public Integer create(Client client) throws SQLException {
+    public Integer create(Client client) throws Exception {
         try {
             return repository.save(client).getId();
         } catch (Exception e) {
-            throw new SQLException("Cannot add new client. " + e.getMessage());
+            throw new Exception("Nie można dodać nowego klienta. " + e.getMessage());
         }
     }
 
@@ -52,7 +52,7 @@ public class ClientService {
         if(event.isPresent()) {
             repository.delete(event.get());
         } else {
-            throw new EntityNotFoundException("Client id " + id + " doesn't exist");
+            throw new EntityNotFoundException("Klient o id " + id + " nie istnieje");
         }
     }
 

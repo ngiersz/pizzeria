@@ -49,7 +49,7 @@ public class OrderService {
         return orderId;
     }
 
-    private void increaseClientsNumberOfOrders(Integer clientId) throws SQLException {
+    private void increaseClientsNumberOfOrders(Integer clientId) throws Exception {
         Client client = clientService.get(clientId);
         client.setAmountOfOrders(client.getAmountOfOrders()+1);
         clientService.update(clientId, client);

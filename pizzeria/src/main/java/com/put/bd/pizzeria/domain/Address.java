@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -21,15 +22,26 @@ public class Address {
     Integer id;
 
     @Column(name = "street", columnDefinition = "NVARCHAR(100)")
+    @NotNull
     String street;
 
     @Column(name = "apartment_number")
+    @NotNull
     Integer apartmentNumber;
 
     @Column(name = "city", columnDefinition = "NVARCHAR(100)")
+    @NotNull
     String city;
 
     @Column(name = "district", columnDefinition = "NVARCHAR(100)")
+    @NotNull
     String district;
 
+    public Address(Integer id, Address address) {
+        this.id = id;
+        this.street = address.street;
+        this.apartmentNumber = address.apartmentNumber;
+        this.city = address.city;
+        this.district = address.district;
+    }
 }
