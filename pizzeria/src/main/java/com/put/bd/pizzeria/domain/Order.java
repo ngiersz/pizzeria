@@ -1,10 +1,12 @@
 package com.put.bd.pizzeria.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.put.bd.pizzeria.domain.ingredient.Ingredient;
 import lombok.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -13,7 +15,6 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table(name = "\"order\"")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Order {
 
     @Id

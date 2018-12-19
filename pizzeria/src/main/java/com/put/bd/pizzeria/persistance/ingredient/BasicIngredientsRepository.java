@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-public interface BasicIngredientsRepository extends JpaRepository<BasicIngredient, Integer> {
-
-    List<BasicIngredient> getByDishMenuId(Integer dishMenuId);
-}
+//@Repository
+//public interface BasicIngredientsRepository extends JpaRepository<BasicIngredient, Integer> {
+//
+//    List<BasicIngredient> getByDishMenuId(Integer dishMenuId);
+//}
