@@ -55,10 +55,9 @@ public class Order {
         this.client = client ;
         this.delivererId = 1;
         this.cookId = 1;
-        this.deliveryTime = 60;
+        this.deliveryTime = null;
         this.discount = 0;
         this.completed = false;
-//        throw new NotImplementedException();
     }
 
 }
