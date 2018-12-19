@@ -35,7 +35,7 @@ public class OrderService {
     }
 
     public Order get(Integer id) {
-        return orderRepository.getOne(id);
+        return orderRepository.findById(id).get();
     }
 
     public List<Order> getClientsOrders(Integer clientId) {
