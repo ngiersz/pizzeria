@@ -34,14 +34,6 @@ INSERT INTO Cook(first_name, last_name)
 VALUES 
 ( 'Kucharz', 'Kucharzyk')
 
-INSERT INTO "Order"(client_id, delivery_time, deliverer_id, cook_id, discount)  
-VALUES 
-( 1, 0, 1, 1, 0)
-
-INSERT INTO ordered_dish(order_id, dish_menu_id)  
-VALUES 
-( 1, 2)
-
 INSERT INTO ingredient("name", price, quantity_in_storeroom)  
 VALUES 
 ( 'Pomidor', 2, 20),
@@ -78,6 +70,14 @@ VALUES
 (3,1),
 (3,9),
 (3,2)
+
+INSERT INTO "Order"(client_id, delivery_time, deliverer_id, cook_id, discount)  
+VALUES 
+( 1, 0, 1, 1, 0)
+
+INSERT INTO ordered_dish(order_id, dish_menu_id)  
+VALUES 
+( 1, 1)
 
 
 -- DELETE "order"
