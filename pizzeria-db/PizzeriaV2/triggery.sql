@@ -53,6 +53,7 @@ AS
 	ELSE IF ((SELECT amount_of_orders FROM Client WHERE id = @client_id) % 3 = 0 AND @discount = 0)
 			SET @discount = 20
 
+
 	UPDATE "order"
 	SET discount = @discount
 	WHERE id = @id

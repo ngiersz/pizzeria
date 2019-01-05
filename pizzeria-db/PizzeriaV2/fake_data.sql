@@ -36,7 +36,7 @@ VALUES
 
 INSERT INTO "Order"(client_id, delivery_time, deliverer_id, cook_id, discount)  
 VALUES 
-( 1, 30, 1, 1, 0)
+( 1, 0, 1, 1, 0)
 
 INSERT INTO ordered_dish(order_id, dish_menu_id)  
 VALUES 
