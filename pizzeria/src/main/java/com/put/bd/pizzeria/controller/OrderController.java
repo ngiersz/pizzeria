@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
-import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -41,6 +40,11 @@ public class OrderController {
         return service.getClientsOrders(clientId);
     }
 
+//    @RequestMapping(value = "/{id}/dishes", method = RequestMethod.GET)
+//    public List<OrderedDish> getOrderedDishes(@PathVariable(value = "id") Integer id) {
+//        return service.getOrderedDishes(id);
+//    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable(value = "id") Integer id) {
         service.delete(id);
@@ -48,9 +52,9 @@ public class OrderController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public Integer create(@PathVariable(value = "id") Integer clientId, @RequestBody List<DishMenu> orderedDishes) throws Exception {
+    public Integer create(@PathVariable(value = "id") Integer clientId, @RequestBody Order order) throws Exception {
         try {
-            return service.save(clientId, orderedDishes);
+            return service.save(clientId, order.getOrderedDishes());
         } finally {
             log.debug("New order was created");
         }

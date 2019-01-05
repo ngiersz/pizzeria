@@ -1,12 +1,10 @@
 package com.put.bd.pizzeria.service;
 
-import com.put.bd.pizzeria.controller.RestResponseEntityExceptionHandler;
 import com.put.bd.pizzeria.domain.Client;
 import com.put.bd.pizzeria.persistance.ClientRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -22,7 +20,7 @@ public class ClientService {
     ClientRepository repository;
 
     @Autowired
-    RestResponseEntityExceptionHandler exceptionHandler;
+    AddressService addressService;
 
     public List<Client> getAll() {
         return repository.findAll();
@@ -33,22 +31,25 @@ public class ClientService {
         if((event = repository.findById(id)).isPresent()) {
             return event.get();
         }
-        throw new EntityNotFoundException("Client id " + id + " doesn't exist");
+        throw new EntityNotFoundException("Klient o id " + id + " nie istnieje");
     }
 
-    public void update(Integer id, Client client) throws SQLException {
+    public void update(Integer id, Client client) throws Exception {
         try {
             repository.save(new Client(id, client));
         } catch (DataAccessException e) {
-            throw new SQLException("Cannot update client. " + e.getMostSpecificCause());
+            throw new Exception("Nie można zaktualizować danych klienta o id " + id + ". " + e.getMostSpecificCause());
         }
     }
 
-    public Integer create(Client client) throws SQLException {
+    public Integer create(Client client) throws Exception {
+        if(client.getAddress().getId() == null) {
+            addressService.create(client.getAddress());
+        }
         try {
             return repository.save(client).getId();
         } catch (Exception e) {
-            throw new SQLException("Cannot add new client. " + e.getMessage());
+            throw new Exception("Nie można dodać nowego klienta. " + e.getMessage());
         }
     }
 
@@ -57,7 +58,7 @@ public class ClientService {
         if(event.isPresent()) {
             repository.delete(event.get());
         } else {
-            throw new EntityNotFoundException("Client id " + id + " doesn't exist");
+            throw new EntityNotFoundException("Klient o id " + id + " nie istnieje");
         }
     }
 

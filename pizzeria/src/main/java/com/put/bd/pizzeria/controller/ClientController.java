@@ -40,7 +40,7 @@ public class ClientController {
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public Integer create(@RequestBody Client client) throws SQLException {
+    public Integer create(@RequestBody Client client) throws Exception {
         // Exception?
         try {
         return service.create(client);
@@ -50,7 +50,7 @@ public class ClientController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public void update(@PathVariable(value = "id") Integer id, @RequestBody Client client) throws SQLException {
+    public void update(@PathVariable(value = "id") Integer id, @RequestBody Client client) throws Exception {
         service.update(id, client);
     }
 

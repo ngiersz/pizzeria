@@ -15,7 +15,6 @@ public class DishMenuService {
     @Autowired
     DishMenuRepository repository;
 
-
     public List<DishMenu> getAll() {
         return repository.findAll();
     }
@@ -29,7 +28,7 @@ public class DishMenuService {
     }
 
     public void updateNameAndPrice(Integer id, DishMenu dishMenu) {
-        DishMenu updatedDish = new DishMenu(id, dishMenu.getName(), dishMenu.getPrice());
+        DishMenu updatedDish = new DishMenu(id, dishMenu.getName(), dishMenu.getPrice(), dishMenu.getBasicIngredients());
         repository.save(updatedDish);
     }
 
