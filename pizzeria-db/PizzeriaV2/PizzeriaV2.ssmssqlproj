@@ -44,9 +44,9 @@
           <FullPath>tabele.sql</FullPath>
         </FileNode>
         <FileNode Name="triggery.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-R53599S\SQLEXPRESS2:False:test</AssociatedConnectionMoniker>
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-R53599S\SQLEXPRESS2:True</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>DESKTOP-R53599S\SQLEXPRESS2</AssociatedConnSrvName>
-          <AssociatedConnUserName>test</AssociatedConnUserName>
+          <AssociatedConnUserName />
           <FullPath>triggery.sql</FullPath>
         </FileNode>
       </Items>

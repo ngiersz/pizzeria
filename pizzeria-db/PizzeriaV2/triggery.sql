@@ -53,6 +53,7 @@ AS
 	ELSE IF ((SELECT amount_of_orders FROM Client WHERE id = @client_id) % 3 = 0 AND @discount = 0)
 			SET @discount = 20
 
+
 	UPDATE "order"
 	SET discount = @discount
 	WHERE id = @id
@@ -80,7 +81,7 @@ BEGIN
 END
 GO
 
---drop trigger insert_order_decrease_ingredients
+--drop trigger insert_ordered_dish_decrease_ingredients
 CREATE TRIGGER insert_ordered_dish_decrease_ingredients
 ON ordered_dish
 AFTER INSERT
@@ -89,10 +90,10 @@ AS
 		DECLARE @dish_menu_id INT = (SELECT dish_menu_id FROM INSERTED)
 		DECLARE @ingredient_id INT
 		DECLARE db_cursor CURSOR FOR 
-		SELECT  i.id FROM ingredient i
+		SELECT i.id FROM ingredient i
 		JOIN basic_ingredient bi
-		ON i.id = bi.id 
-		WHERE dish_menu_id = @dish_menu_id
+		ON i.id = bi.ingredient_id
+		WHERE bi.dish_menu_id = @dish_menu_id
 
 	
 	OPEN db_cursor  
