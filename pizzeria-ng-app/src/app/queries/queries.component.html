@@ -1,0 +1,89 @@
+<h1 class="display-5" style="margin-top: 80px">Wydatki klientów:</h1>
+
+<table mdbTable hover="true" borderless="true" class="amber lighten-3 "  >
+  <thead class="amber accent-4 border border-0 border-dark">
+  <tr>
+    <th>ID Klienta</th>
+    <th>Imię</th>
+    <th>Nazwisko</th>
+    <th>Łącznie wydane pieniądze</th>
+  </tr>
+  </thead>
+  <tbody class="border border-0 border-dark">
+  <tr mdbTableCol *ngFor="let clientValue of clientValues"  class="border border-0 border-dark">
+    <td>{{clientValue.clientId}}</td>
+    <td>{{clientValue.firstName}}</td>
+    <td>{{clientValue.lastName}}</td>
+    <td>{{clientValue.price}} PLN</td>
+  </tr>
+  </tbody>
+</table>
+
+<h1 class="display-5" style="margin-top: 5px">Statystyki klienta:</h1>
+<div *ngIf="isFound">
+  <table mdbTable hover="true" borderless="true" class="amber lighten-3 " style="margin-top: 10px" >
+    <thead class="amber accent-4 border border-0 border-dark">
+    <tr>
+      <th>Imię</th>
+      <th>Nazwisko</th>
+      <th>Łączna wartość</th>
+      <th>Średnia wartość</th>
+      <th>Maksymalna wartość</th>
+      <th>Minimalna wartość</th>
+      <th>Ilość zamówień</th>
+
+    </tr>
+    </thead>
+    <tbody class="border border-0 border-dark">
+    <tr mdbTableCol   class="border border-0 border-dark">
+      <td>{{clientStatistics.firstName}}</td>
+      <td>{{clientStatistics.lastName}}</td>
+      <td>{{clientStatistics.overallValue}} PLN</td>
+      <td>{{clientStatistics.valuePerOrder}} PLN</td>
+      <td>{{clientStatistics.maxOrderValue}} PLN</td>
+      <td>{{clientStatistics.minOrderValue}} PLN</td>
+      <td>{{clientStatistics.numberOfOrders}}</td>
+
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="md-form">
+  <input #idClient mdbInputDirective size="35" type="text" id="form1" class="form-control"
+         (keyup.enter)="getClientStatisticsById(idClient.value)"
+         (blur)="getClientStatisticsById(idClient.value); idClient.value='' ">
+  <button mdbBtn type="button" color="elegant" mdbWavesEffect (click)="getClientStatisticsById(idClient.value)">Wyszukaj</button>
+
+  <label for="form1" class="">ID klienta:</label>
+</div>
+
+
+<h1 class="display-5" style="margin-top: 10px">Najpopularniejsza pizza:</h1>
+
+<table mdbTable hover="true" borderless="true" class="amber lighten-3 "  >
+  <thead class="amber accent-4 border border-0 border-dark">
+  <tr>
+    <th>ID pizzy</th>
+    <th>Nazwa</th>
+    <th>Ilość zamówień tej pizzy</th>
+  </tr>
+  </thead>
+  <tbody class="border border-0 border-dark">
+  <tr mdbTableCol class="border border-0 border-dark">
+    <td>{{mostPopularPizza.dishMenuId}}</td>
+    <td>{{mostPopularPizza.name}}</td>
+    <td>{{mostPopularPizza.quantity}}</td>
+  </tr>
+  </tbody>
+</table>
+
+<h1 class="display-5" style="margin-top: 5px">Cena zamówienia: <b><a *ngIf = "show">{{price}} PLN</a></b> </h1>
+
+<div class="md-form">
+  <input #idOrder mdbInputDirective size="35" type="text" id="form2" class="form-control"
+         (keyup.enter)="getOrderPriceById(idOrder.value)"
+         (blur)="getOrderPriceById(idOrder.value); idOrder.value='' ">
+  <button mdbBtn type="button" color="elegant" mdbWavesEffect (click)="getOrderPriceById(idOrder.value)">Wyszukaj</button>
+
+  <label for="form2" class="">ID zamówienia:</label>
+</div>

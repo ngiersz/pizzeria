@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {Observable, throwError} from "rxjs";
-import {Config} from "protractor";
-import {catchError} from "rxjs/operators";
-import {ApiService} from "../shared/api.service";
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {Observable, throwError} from 'rxjs';
+import {Config} from 'protractor';
+import {catchError} from 'rxjs/operators';
+import {ApiService} from '../shared/api.service';
+import {Address} from '../addresses/addresses.component';
 
 @Component({
   selector: 'app-clients',
@@ -11,18 +12,19 @@ import {ApiService} from "../shared/api.service";
   styleUrls: ['./clients.component.css']
 })
 export class ClientsComponent implements OnInit {
-  model: ClientModel = {
+  model: Client = {
+    address: null,
     id: null,
     firstName: '',
     lastName: '',
     email: '',
-    login:'',
+    login: '',
     phoneNumber: '',
     addressId: null,
-    amountOfOrders:null
+    amountOfOrders: null
   };
 
-  clients: ClientModel[] = [];
+  clients: Client[] = [];
 
   constructor(private apiService: ApiService) {
 
@@ -38,15 +40,17 @@ export class ClientsComponent implements OnInit {
         location.reload();
       },
       (error: HttpErrorResponse) => {
-        alert(JSON.stringify(error.error["message"]));
+        alert(JSON.stringify(error.error['message']));
       }
     );
   }
 
-  getAllClients(){
+  getAllClients() {
     this.apiService.getAllClients().subscribe(
       res => {
-        this.clients = JSON.parse(JSON.stringify(res));
+        console.log(res);
+        this.clients = res; // JSON.parse(JSON.stringify(res));
+
       },
       (error: HttpErrorResponse) => {
         alert(error);
@@ -55,13 +59,14 @@ export class ClientsComponent implements OnInit {
   }
 }
 
-export interface  ClientModel {
-  id:number,
-  firstName:string,
-  lastName:string,
-  email:string,
-  phoneNumber:string,
-  addressId:number,
-  login:string,
-  amountOfOrders:number
+export interface  Client {
+  address: Address;
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  addressId: number;
+  login: string;
+  amountOfOrders: number;
 }
