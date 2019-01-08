@@ -1,11 +1,14 @@
 package com.put.bd.pizzeria.service;
 
+import com.put.bd.logging.MongoDBLogger;
 import com.put.bd.pizzeria.domain.Client;
 import com.put.bd.pizzeria.domain.Order;
+import com.put.bd.pizzeria.domain.OrderSubmission;
 import com.put.bd.pizzeria.domain.OrderedDish;
 import com.put.bd.pizzeria.domain.ingredient.AdditionalIngredient;
 import com.put.bd.pizzeria.domain.ingredient.Ingredient;
 import com.put.bd.pizzeria.persistance.OrderRepository;
+import com.put.bd.pizzeria.persistance.OrderSubmissionRepository;
 import com.put.bd.pizzeria.persistance.OrderedDishRepository;
 import com.put.bd.pizzeria.persistance.ingredient.AdditionalIngredientRepository;
 import com.put.bd.pizzeria.persistance.ingredient.IngredientRepository;
@@ -15,9 +18,11 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 
 @Service
 @Slf4j
@@ -36,7 +41,13 @@ public class OrderService {
     IngredientRepository ingredientRepository;
 
     @Autowired
+    OrderSubmissionRepository orderSubmissionRepository;
+
+    @Autowired
     ClientService clientService;
+
+    @Autowired
+    MongoDBLogger logger;
 
     public List<Order> getAll() {
         return orderRepository.findAll();
@@ -54,8 +65,10 @@ public class OrderService {
     public Integer save(Integer clientId, Set<OrderedDish> orderedDishes) throws Exception {
         Client client = clientService.get(clientId);
         Integer orderId = createNewOrder(client);
+        saveOrderSubmission(orderId);
         increaseClientsNumberOfOrders(clientId);
         addOrderedDishes(orderId, orderedDishes);
+        logger.info("Dodano zamówienie o id=" + orderId + " dla klienta o id=" + clientId + " zawierające " + orderedDishes.size() + " dań.");
         return orderId;
     }
 
@@ -68,9 +81,7 @@ public class OrderService {
 
     private void addOrderedDishes(Integer orderId, Set<OrderedDish> orderedDishes) {
         for (OrderedDish dish : orderedDishes) {
-            System.out.println("wysłane przez klienta: " + dish.getId() + " " + dish.getDishMenu() + " " + dish.getOrder() + " " + dish.getAdditionalIngredients());
             OrderedDish orderedDish = new OrderedDish(get(orderId), dish);
-            System.out.println("dodawane do bazy danych: " + orderedDish.getId() + " " + orderedDish.getDishMenu() + " " + orderedDish.getOrder() + " " + orderedDish.getAdditionalIngredients());
             Set<Ingredient> createdAdditionalIngredients = saveAdditionalIngredients(orderedDish.getId(), orderedDish.getAdditionalIngredients());
             orderedDish.setAdditionalIngredients(createdAdditionalIngredients);
             orderedDishRepository.save(orderedDish);
@@ -92,8 +103,14 @@ public class OrderService {
         return orderRepository.save(order).getId();
     }
 
+    private void saveOrderSubmission(Integer orderId) {
+        OrderSubmission orderSubmission = new OrderSubmission(null, LocalDateTime.now(), orderId);
+        orderSubmissionRepository.save(orderSubmission);
+    }
+
     public void delete(Integer id) {
         orderRepository.delete(orderRepository.getOne(id));
+        logger.info("Usunięto zamówienie o id=" + id + ".");
     }
 
     public List<OrderedDish> getOrderedDishes(Integer orderId) {
