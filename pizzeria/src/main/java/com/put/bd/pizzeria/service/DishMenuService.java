@@ -1,7 +1,9 @@
 package com.put.bd.pizzeria.service;
 
+import com.put.bd.logging.MongoDBLogger;
 import com.put.bd.pizzeria.domain.DishMenu;
 import com.put.bd.pizzeria.persistance.DishMenuRepository;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,16 +17,15 @@ public class DishMenuService {
     @Autowired
     DishMenuRepository repository;
 
+    @Autowired
+    MongoDBLogger logger;
+
     public List<DishMenu> getAll() {
         return repository.findAll();
     }
 
     public DishMenu get(Integer id) {
         return repository.findById(id).get();
-    }
-
-    public Integer create(DishMenu dish) {
-        return repository.save(dish).getId();
     }
 
     public void updateNameAndPrice(Integer id, DishMenu dishMenu) {
@@ -39,6 +40,7 @@ public class DishMenuService {
             throw new EntityNotFoundException("DishMenu " + id + " doesn't exist");
         }
         repository.save(new DishMenu(id, dish));
+        logger.info("Zmodyfikowano danie o id=" + id + ".");
     }
 
 }

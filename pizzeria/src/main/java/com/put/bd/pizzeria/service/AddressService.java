@@ -1,5 +1,6 @@
 package com.put.bd.pizzeria.service;
 
+import com.put.bd.logging.MongoDBLogger;
 import com.put.bd.pizzeria.domain.Address;
 import com.put.bd.pizzeria.persistance.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,15 @@ public class AddressService {
     @Autowired
     AddressRepository repository;
 
+    @Autowired
+    MongoDBLogger logger;
+
     public Address get(Integer id) {
         Optional<Address> event;
         if((event = repository.findById(id)).isPresent()) {
             return event.get();
         }
-        throw new EntityNotFoundException("Address id " + id + " doesn't exist");
+        throw new EntityNotFoundException("Adres o id=" + id + " nie istnieje");
     }
 
     public List<Address> getAll() {
@@ -30,11 +34,14 @@ public class AddressService {
     }
 
     public Integer create(Address address) {
-        return repository.save(address).getId();
+        Integer id = repository.save(address).getId();
+        logger.info("Dodano adres o id=" + id + ".");
+        return id;
     }
 
     public void update(Integer id, Address address) {
         repository.save(new Address(id, address));
+        logger.info("Zmodyfikowano adres o id=" + id + ".");
 //        try {
 //            repository.save(new Address(id, address));
 //        } catch (DataAccessException e) {
@@ -44,5 +51,6 @@ public class AddressService {
 
     public void delete(Integer id) {
         repository.delete(repository.findById(id).get());
+        logger.info("Usunięto adres o id=" + id + ".");
     }
 }

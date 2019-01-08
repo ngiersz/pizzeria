@@ -1,5 +1,6 @@
 package com.put.bd.pizzeria.service;
 
+import com.put.bd.logging.MongoDBLogger;
 import com.put.bd.pizzeria.domain.Client;
 import com.put.bd.pizzeria.domain.Order;
 import com.put.bd.pizzeria.domain.OrderSubmission;
@@ -21,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 
 @Service
 @Slf4j
@@ -44,6 +46,9 @@ public class OrderService {
     @Autowired
     ClientService clientService;
 
+    @Autowired
+    MongoDBLogger logger;
+
     public List<Order> getAll() {
         return orderRepository.findAll();
     }
@@ -63,6 +68,7 @@ public class OrderService {
         saveOrderSubmission(orderId);
         increaseClientsNumberOfOrders(clientId);
         addOrderedDishes(orderId, orderedDishes);
+        logger.info("Dodano zamówienie o id=" + orderId + " dla klienta o id=" + clientId + " zawierające " + orderedDishes.size() + " dań.");
         return orderId;
     }
 
@@ -100,11 +106,11 @@ public class OrderService {
     private void saveOrderSubmission(Integer orderId) {
         OrderSubmission orderSubmission = new OrderSubmission(null, LocalDateTime.now(), orderId);
         orderSubmissionRepository.save(orderSubmission);
-        log.debug("OrderSubmission " + orderSubmission.getId() + " " + orderSubmission.getDateTime() + " orderId=" + orderId + " saved to mongoDB");
     }
 
     public void delete(Integer id) {
         orderRepository.delete(orderRepository.getOne(id));
+        logger.info("Usunięto zamówienie o id=" + id + ".");
     }
 
     public List<OrderedDish> getOrderedDishes(Integer orderId) {

@@ -1,5 +1,6 @@
 package com.put.bd.pizzeria.service;
 
+import com.put.bd.logging.MongoDBLogger;
 import com.put.bd.pizzeria.domain.Client;
 import com.put.bd.pizzeria.persistance.ClientRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,9 @@ public class ClientService {
     @Autowired
     AddressService addressService;
 
+    @Autowired
+    MongoDBLogger logger;
+
     public List<Client> getAll() {
         return repository.findAll();
     }
@@ -37,6 +41,7 @@ public class ClientService {
     public void update(Integer id, Client client) throws Exception {
         try {
             repository.save(new Client(id, client));
+            logger.info("Zmodyfikowano klienta o id=" + id + ".");
         } catch (DataAccessException e) {
             throw new Exception("Nie można zaktualizować danych klienta o id " + id + ". " + e.getMostSpecificCause());
         }
@@ -44,7 +49,9 @@ public class ClientService {
 
     public Integer create(Client client) throws Exception {
         if(client.getAddress().getId() == null) {
-            addressService.create(client.getAddress());
+            Integer id = addressService.create(client.getAddress());
+            logger.info("Dodano klienta o id=" + id + ".");
+            return id;
         }
         try {
             return repository.save(client).getId();
@@ -57,6 +64,7 @@ public class ClientService {
         Optional<Client> event = repository.findById(id);
         if(event.isPresent()) {
             repository.delete(event.get());
+            logger.info("Usunięto klienta o id=" + id + ".");
         } else {
             throw new EntityNotFoundException("Klient o id " + id + " nie istnieje");
         }
