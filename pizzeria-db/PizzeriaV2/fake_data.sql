@@ -47,11 +47,6 @@ VALUES
 ( 'Pieczarki', 2, 20)
 
 
-
-INSERT INTO additional_ingredient(ordered_dish_id, ingredient_id)  
-VALUES 
-( 1, 2)
-
 INSERT INTO basic_ingredient(dish_menu_id, ingredient_id)  
 VALUES 
 (1,3),
@@ -79,6 +74,10 @@ INSERT INTO ordered_dish(order_id, dish_menu_id)
 VALUES 
 ( 1, 1)
 
+INSERT INTO additional_ingredient(ordered_dish_id, ingredient_id)  
+VALUES 
+( 1, 2)
+
 
 -- DELETE "order"
 -- delete "Address"
@@ -95,9 +94,4 @@ select * from dish_Menu
 select * from ordered_dish
 select * from basic_ingredient
 select * from additional_ingredient
-
-
-select * from dish_menu d
-JOIN basic_ingredient bi on d.id = bi.dish_menu_id
-JOIN ingredient i on i.id = bi.ingredient_id
 

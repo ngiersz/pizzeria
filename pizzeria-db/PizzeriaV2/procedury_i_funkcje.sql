@@ -1,6 +1,62 @@
 USE Pizzeria
 GO
 
+-- Statystyki klienta
+-- drop procedure client_statistics
+CREATE PROCEDURE client_statistics
+(	
+	@client_id INT
+)
+AS
+BEGIN
+	DECLARE @overall_value INT;
+	SET @overall_value = (SELECT price FROM client_value WHERE client_value.client_Id = @client_id);
+
+	DECLARE @number_of_orders INT;
+	SET @number_of_orders = 
+	(
+		SELECT COUNT(o.id) FROM "order" o
+		JOIN client c ON c.id = o.client_id
+		WHERE c.id = @client_id
+	)
+
+	DECLARE @MIN_order_value INT;
+	SET @MIN_order_value = 
+	(
+		SELECT MIN(ov.price) FROM "order" o
+		JOIN client c ON c.id = o.client_id
+		JOIN order_value ov ON ov.order_id = o.id
+		WHERE c.id = @client_id
+	)
+
+	DECLARE @MAX_order_value INT;
+	SET @MAX_order_value = 
+	(
+		SELECT MAX(ov.price) FROM "order" o
+		JOIN client c ON c.id = o.client_id
+		JOIN order_value ov ON ov.order_id = o.id
+		WHERE c.id = @client_id
+	)
+
+	SELECT c.first_name, c.last_name, @overall_value overall_value, @overall_value/@number_of_orders Value_per_order, @MAX_order_value MAX_order_value, @MIN_order_value MIN_order_value FROM client c
+	WHERE c.id = @client_id
+
+END
+GO
+
+
+CREATE PROCEDURE order_price
+(	
+	@order_id INT
+)
+AS
+BEGIN
+	SELECT price FROM order_value
+	WHERE order_id = @order_id
+END
+
+
+
 --drop procedure insert_client
 --CREATE PROCEDURE insert_client
 --(	
