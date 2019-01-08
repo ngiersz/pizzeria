@@ -106,6 +106,7 @@ public class OrderService {
     private void saveOrderSubmission(Integer orderId) {
         OrderSubmission orderSubmission = new OrderSubmission(null, LocalDateTime.now(), orderId);
         orderSubmissionRepository.save(orderSubmission);
+        System.out.println("saved ordersubmission " + orderSubmission.getId());
     }
 
     public void delete(Integer id) {
