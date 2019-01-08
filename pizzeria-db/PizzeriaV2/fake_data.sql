@@ -7,22 +7,22 @@ VALUES
 
 INSERT INTO Client (first_name, last_name, email, phone_number, address_id )  
 VALUES 
-( 'John', 'Musician', 'john.musician@gmail.com', '+48123456789', 1)
+( 'Janko', 'Muzykant', 'janko.muzykant@gmail.com', '+48123456789', 1)
 INSERT INTO Client (first_name, last_name, email, phone_number, address_id )  
 VALUES 
-( 'Charlie', 'Watson', 'charlie.watson@gmail.com', '123456789', 2)
+( 'Tadeusz', 'Niemiec', 'tadeusz.niemiec@gmail.com', '123456789', 2)
 INSERT INTO Client (first_name, last_name, email, phone_number, address_id )  
 VALUES 
-( 'John', 'Doe', 'mymail@gmail.com', '111222333', 1)
+( 'Wojciech', 'Danke', 'wojciech.danke@wp.pl', '111222333', 1)
 INSERT INTO Client (first_name, last_name, email, phone_number, address_id )  
 VALUES 
-( 'Sarah', 'Jane', 'sa.ja@yahoo.com', '191919191', 2)
+( 'Sara', 'Wiêckowska', 's.wieckowska@yahoo.com', '191919191', 2)
 
 
 
 INSERT INTO Dish_Menu( "name", price)  
 VALUES 
-('Basic', 17),
+('Margherita', 17),
 ('Miêsna', 23),
 ('Wegetariañska', 10)
 
