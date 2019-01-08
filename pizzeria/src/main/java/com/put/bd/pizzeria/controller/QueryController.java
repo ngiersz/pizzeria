@@ -7,7 +7,6 @@ import com.put.bd.pizzeria.domain.query.MostPopular;
 import com.put.bd.pizzeria.persistance.view.ClientValueRepository;
 import com.put.bd.pizzeria.persistance.view.MostPopularRepository;
 import com.put.bd.pizzeria.service.ClientService;
-import com.sun.org.apache.xerces.internal.xs.datatypes.ObjectList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -19,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping("/query")
@@ -69,5 +70,27 @@ public class QueryController {
     public MostPopular mostPopuarPizza() {
         return mostPopularRepository.findAll().get(0);
     }
+
+    @RequestMapping(value = "/orderPrice/{id}", method = RequestMethod.GET)
+    public Float orderPrice(@PathVariable(value = "id") Integer orderId) {
+        SimpleJdbcCall jdbcCall = new SimpleJdbcCall(dataSource).withProcedureName("order_price");
+        SqlParameterSource in = new MapSqlParameterSource().addValue("order_id", orderId);
+        Map out = jdbcCall.execute(in);
+
+        List rows = (ArrayList<ClientStatistics>) out.get("#result-set-1");
+        String stringValue = rows.get(0).toString();
+
+        Pattern regex = Pattern.compile("[0-9]*[.][0-9]*");
+        Matcher m = regex.matcher(stringValue);
+
+        Float result = null;
+        if (m.find()) {
+            result = Float.valueOf(m.group());
+        }
+
+        return result;
+    }
+
+
 
 }
