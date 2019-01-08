@@ -1,7 +1,6 @@
 USE Pizzeria
 GO
 
-
 --drop trigger insert_client_create_login
 CREATE TRIGGER insert_client_create_login
 ON Client 
@@ -58,9 +57,9 @@ AS
 	SET discount = @discount
 	WHERE id = @id
 
-	UPDATE client
-	SET amount_of_orders = amount_of_orders+1
-	WHERE id = @client_id
+	--UPDATE client
+	--SET amount_of_orders = amount_of_orders+1
+	--WHERE id = @client_id
 
   END
 GO
