@@ -51,16 +51,24 @@ public class QueryController {
 
         List rows = (ArrayList<ClientStatistics>) out.get("#result-set-1");
         String result = rows.get(0).toString();
-        result = result.replaceAll("[^0-9]+", " ");
-        List resultList = Arrays.asList(result.trim().split(" "));
 
+        String resultInt = result.replaceAll("[^0-9]+", " ");
+        Integer matchedInt = Integer.parseInt(Arrays.asList(resultInt.trim().split(" ")).get(0));
+
+        Pattern regex = Pattern.compile("[0-9]*[[0-9]+[.][0-9]*]{4}");
+        Matcher m = regex.matcher(result);
+        List<String> allMatches = new ArrayList<>();
+        while (m.find()) {
+            allMatches.add(m.group());
+        }
         Client client = clientService.get(clientID);
 
         return ClientStatistics.builder()
-                .overallValue(Integer.parseInt((String) resultList.get(0)))
-                .valuePerOrder(Integer.parseInt((String) resultList.get(1)))
-                .maxOrderVaue(Integer.parseInt((String) resultList.get(2)))
-                .minOrderValue(Integer.parseInt((String) resultList.get(3)))
+                .overallValue(Float.valueOf(allMatches.get(0)))
+                .valuePerOrder(Float.valueOf(allMatches.get(1)))
+                .maxOrderValue(Float.valueOf(allMatches.get(2)))
+                .minOrderValue(Float.valueOf(allMatches.get(3)))
+                .numberOfOrders(matchedInt)
                 .firstName(client.getFirstName())
                 .lastName(client.getLastName())
                 .build();

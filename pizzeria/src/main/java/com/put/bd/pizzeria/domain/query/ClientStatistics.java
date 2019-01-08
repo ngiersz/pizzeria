@@ -11,8 +11,9 @@ public class ClientStatistics {
 
     String firstName;
     String lastName;
-    Integer overallValue;
-    Integer valuePerOrder;
-    Integer maxOrderVaue;
-    Integer minOrderValue;
+    Float overallValue;
+    Float valuePerOrder;
+    Float maxOrderValue;
+    Float minOrderValue;
+    Integer numberOfOrders;
 }
