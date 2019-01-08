@@ -1,6 +1,7 @@
 USE Pizzeria
 GO
 
+
 -- Statystyki klienta
 -- drop procedure client_statistics
 CREATE PROCEDURE client_statistics
@@ -9,7 +10,7 @@ CREATE PROCEDURE client_statistics
 )
 AS
 BEGIN
-	DECLARE @overall_value INT;
+	DECLARE @overall_value MONEY;
 	SET @overall_value = (SELECT price FROM client_value WHERE client_value.client_Id = @client_id);
 
 	DECLARE @number_of_orders INT;
@@ -20,7 +21,7 @@ BEGIN
 		WHERE c.id = @client_id
 	)
 
-	DECLARE @MIN_order_value INT;
+	DECLARE @MIN_order_value MONEY;
 	SET @MIN_order_value = 
 	(
 		SELECT MIN(ov.price) FROM "order" o
@@ -29,7 +30,7 @@ BEGIN
 		WHERE c.id = @client_id
 	)
 
-	DECLARE @MAX_order_value INT;
+	DECLARE @MAX_order_value MONEY;
 	SET @MAX_order_value = 
 	(
 		SELECT MAX(ov.price) FROM "order" o
@@ -38,12 +39,11 @@ BEGIN
 		WHERE c.id = @client_id
 	)
 
-	SELECT c.first_name, c.last_name, @overall_value overall_value, @overall_value/@number_of_orders Value_per_order, @MAX_order_value MAX_order_value, @MIN_order_value MIN_order_value FROM client c
+	SELECT c.first_name, c.last_name, @number_of_orders number_of_orders, @overall_value overall_value, @overall_value/@number_of_orders Value_per_order, @MAX_order_value MAX_order_value, @MIN_order_value MIN_order_value FROM client c
 	WHERE c.id = @client_id
 
 END
 GO
-
 
 CREATE PROCEDURE order_price
 (	
@@ -54,6 +54,7 @@ BEGIN
 	SELECT price FROM order_value
 	WHERE order_id = @order_id
 END
+GO
 
 
 
