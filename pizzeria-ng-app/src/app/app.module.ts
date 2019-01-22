@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { ClientsComponent } from './clients/clients.component';
@@ -12,15 +14,26 @@ import  {HttpClientModule} from "@angular/common/http";
 import { HomeComponent } from './home/home.component';
 import { MakeOrderComponent } from './make-order/make-order.component';
 import { MenuComponent } from './menu/menu.component';
+import { FooterComponent } from './footer/footer.component';
+import { LogsComponent } from './logs/logs.component';
+import { QueriesComponent } from './queries/queries.component';
 
 const appRoutes :Routes = [
   {
-    path:'',
+    path:'home',
     component: HomeComponent
   },
   {
     path:'clients',
     component: ClientsComponent
+  },
+  {
+    path:'logs',
+    component: LogsComponent
+  },
+  {
+    path:'queries',
+    component: QueriesComponent
   },
   {
     path:'addresses',
@@ -36,7 +49,7 @@ const appRoutes :Routes = [
   },
   {
     path:'',
-    component: ClientsComponent
+    component: HomeComponent
   },
   {
     path:'**',
@@ -54,8 +67,11 @@ const appRoutes :Routes = [
     HomeComponent,
     MakeOrderComponent,
     MenuComponent,
+    FooterComponent,
+    LogsComponent,
+    QueriesComponent,
   ],
-  imports: [
+  imports: [  MDBBootstrapModule.forRoot(),
     BrowserModule,
     RouterModule.forRoot(appRoutes, {enableTracing:true}),
     FormsModule,

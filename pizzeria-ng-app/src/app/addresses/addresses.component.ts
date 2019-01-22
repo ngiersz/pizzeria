@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ApiService} from "../shared/api.service";
-import {HttpErrorResponse} from "@angular/common/http";
+import {ApiService} from '../shared/api.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-addresses',
@@ -8,37 +8,37 @@ import {HttpErrorResponse} from "@angular/common/http";
   styleUrls: ['./addresses.component.css']
 })
 export class AddressesComponent implements OnInit {
-model: AddressModel = {
-  id: null,
-  street: "",
-  apartmentNumber: null,
-  city: "",
-  district: ""
-}
   constructor(private apiService: ApiService) { }
+model: Address = {
+  id: null,
+  street: '',
+  apartmentNumber: null,
+  city: '',
+  district: ''
+};
+
+  address: Address = null;
 
   ngOnInit() {
   }
 
-  address: AddressModel = null;
-
-  getAddress(id: number){
+  getAddress(id: number) {
   this.apiService.getAddressById(id).subscribe(
     res => {
       this.address = JSON.parse(JSON.stringify(res));
       alert(this.address.city);
     },
     (error: HttpErrorResponse) => {
-      alert("error pobieranie adresu");
+      alert('error pobieranie adresu');
     }
-  )
+  );
   }
 
 }
-export interface  AddressModel {
-  id:number,
-  street:string,
-  apartmentNumber:number,
-  city:string,
-  district:string,
+export interface  Address {
+  id: number;
+  street: string;
+  apartmentNumber: number;
+  city: string;
+  district: string;
 }

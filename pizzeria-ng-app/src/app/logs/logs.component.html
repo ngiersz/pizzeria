@@ -1,0 +1,18 @@
+<h1 class="display-5" style="margin-top:80px">Dziennik zdarzeń:</h1>
+
+<table mdbTable hover="true" borderless="true" class="amber lighten-3 " style="margin-top: 5px" >
+  <thead class="amber accent-4 border border-0 border-dark">
+  <tr>
+    <th>ID</th>
+    <th>Data</th>
+    <th>Wiadomość</th>
+  </tr>
+  </thead>
+  <tbody class="border border-0 border-dark">
+  <tr mdbTableCol *ngFor="let log of logs"  class="border border-0 border-dark">
+    <th scope="row">{{log.id}}</th>
+    <td>{{log.dateTime}}</td>
+    <td>{{log.message}}</td>
+  </tr>
+  </tbody>
+</table>
