@@ -14,10 +14,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.web.bind.annotation.*;
 
 import javax.sql.DataSource;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -75,8 +72,8 @@ public class QueryController {
     }
 
     @RequestMapping(value = "/mostPopularPizza", method = RequestMethod.GET)
-    public MostPopular mostPopuarPizza() {
-        return mostPopularRepository.findAll().get(0);
+    public List<MostPopular> mostPopularPizza() {
+        return mostPopularRepository.findAll();
     }
 
     @RequestMapping(value = "/orderPrice/{id}", method = RequestMethod.GET)
@@ -98,7 +95,5 @@ public class QueryController {
 
         return result;
     }
-
-
 
 }

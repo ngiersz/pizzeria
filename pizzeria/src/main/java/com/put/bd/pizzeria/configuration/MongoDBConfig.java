@@ -7,9 +7,6 @@ import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 @Configuration
 public class MongoDBConfig extends AbstractMongoConfiguration {
 
-//    @Autowired
-//    public static MongoDBLogger LOGGER;
-
     @Override
     protected String getDatabaseName() {
         return "pizzeria";

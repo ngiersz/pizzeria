@@ -2,7 +2,6 @@ package com.put.bd.pizzeria.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -29,22 +28,8 @@ public class Order {
     @NotNull
     Client client;
 
-    @Column(name = "deliverer_id")
-    @NotNull(message = "Nie wybrano dostawcy.")
-    Integer delivererId;
-
-    @Column(name = "cook_id")
-    @NotNull(message = "Nie wybrano kucharza.")
-    Integer cookId;
-
-    @Column(name = "delivery_time")
-    Integer deliveryTime;
-
     @Column(name = "discount")
     Integer discount;
-
-    @Column(name = "completed")
-    Boolean completed;
 
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
@@ -53,11 +38,7 @@ public class Order {
 
     public Order(Client client) {
         this.client = client ;
-        this.delivererId = 1;
-        this.cookId = 1;
-        this.deliveryTime = null;
         this.discount = 0;
-        this.completed = false;
     }
 
 }
