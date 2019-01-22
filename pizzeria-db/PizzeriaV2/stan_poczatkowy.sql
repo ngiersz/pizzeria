@@ -26,14 +26,6 @@ VALUES
 ('Miêsna', 23),
 ('Wegetariañska', 10)
 
-INSERT INTO Deliverer(first_name, last_name)  
-VALUES 
-( 'Dostawca', 'Dostawczyk')
-
-INSERT INTO Cook(first_name, last_name)  
-VALUES 
-( 'Kucharz', 'Kucharzyk')
-
 INSERT INTO ingredient("name", price, quantity_in_storeroom)  
 VALUES 
 ( 'Pomidor', 2, 20),
@@ -51,7 +43,7 @@ INSERT INTO basic_ingredient(dish_menu_id, ingredient_id)
 VALUES 
 (1,3),
 (1,2),
-(1,4),
+
 
 (2,3),
 (2,5),
@@ -72,26 +64,8 @@ VALUES
 
 INSERT INTO ordered_dish(order_id, dish_menu_id)  
 VALUES 
-( 1, 1)
+( 1, 2)
 
 INSERT INTO additional_ingredient(ordered_dish_id, ingredient_id)  
 VALUES 
-( 1, 2)
-
-
--- DELETE "order"
--- delete "Address"
--- delete Client
--- delete ordered_dish
--- delete dish_menu
-select * from ingredient
-select * from Client
-select * from "Address"
-select * from cook
-select * from deliverer
-select * from "order"
-select * from dish_Menu
-select * from ordered_dish
-select * from basic_ingredient
-select * from additional_ingredient
-
+( 1, 1)

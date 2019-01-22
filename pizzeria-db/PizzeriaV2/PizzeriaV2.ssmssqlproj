@@ -31,10 +31,16 @@
     </LogicalFolder>
     <LogicalFolder Name="Queries" Type="0" Sorted="true">
       <Items>
-        <FileNode Name="procedury_i_funkcje.sql">
-          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-R53599S\SQLEXPRESS2:False:test</AssociatedConnectionMoniker>
+        <FileNode Name="fake_data.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-R53599S\SQLEXPRESS2:True</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>DESKTOP-R53599S\SQLEXPRESS2</AssociatedConnSrvName>
-          <AssociatedConnUserName>test</AssociatedConnUserName>
+          <AssociatedConnUserName />
+          <FullPath>fake_data.sql</FullPath>
+        </FileNode>
+        <FileNode Name="procedury_i_funkcje.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-R53599S\SQLEXPRESS2:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-R53599S\SQLEXPRESS2</AssociatedConnSrvName>
+          <AssociatedConnUserName />
           <FullPath>procedury_i_funkcje.sql</FullPath>
         </FileNode>
         <FileNode Name="tabele.sql">
@@ -48,6 +54,12 @@
           <AssociatedConnSrvName>DESKTOP-R53599S\SQLEXPRESS2</AssociatedConnSrvName>
           <AssociatedConnUserName />
           <FullPath>triggery.sql</FullPath>
+        </FileNode>
+        <FileNode Name="views.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-R53599S\SQLEXPRESS2:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>DESKTOP-R53599S\SQLEXPRESS2</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>views.sql</FullPath>
         </FileNode>
       </Items>
     </LogicalFolder>

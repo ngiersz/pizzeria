@@ -1,3 +1,6 @@
+USE Pizzeria
+GO
+
 -- Wartoœæ ka¿dego zamówienia.
 CREATE VIEW order_value AS
 (
@@ -15,27 +18,31 @@ CREATE VIEW order_value AS
 GO
 
 -- Wydane pieni¹dze przez klientów.
+--drop view client_value
 CREATE VIEW client_value AS
 (
-	SELECT ROW_NUMBER() OVER( ORDER BY c.id ) AS id ,c.id client_id, c.first_name, c.last_name, SUM(order_value.price) price FROM order_value
+	SELECT TOP 10 ROW_NUMBER() OVER( ORDER BY SUM(order_value.price) DESC) AS id ,c.id client_id, c.first_name, c.last_name, SUM(order_value.price) price FROM order_value
 	JOIN "order" o ON o.id = order_value.order_id
 	JOIN client c ON c.id = o.client_id
 	GROUP BY c.id, c.first_name, c.last_name
+	ORDER BY price DESC
 )
 GO
 
--- Najczêœciej kupowana pizza.
+-- Najczêœciej kupowane pizze.
+-- drop view most_popular_pizza
 CREATE VIEW most_popular_pizza AS
 (
-	SELECT 1 as id, top_dishes.dish_menu_id, dm."name", top_dishes.quantity FROM 
+	SELECT ROW_NUMBER()  OVER( ORDER BY top_dishes.quantity DESC) as id, top_dishes.dish_menu_id, dm."name", top_dishes.quantity FROM 
 	(
-		SELECT TOP(1) od.dish_menu_id, count(od.dish_menu_id) quantity FROM ordered_dish od
+		SELECT TOP(3) od.dish_menu_id, COUNT(od.dish_menu_id) quantity FROM ordered_dish od
 		GROUP BY od.dish_menu_id
 		ORDER BY quantity DESC
 	) AS top_dishes
 	JOIN dish_menu dm ON dm.id = top_dishes.dish_menu_id
 )
 GO
+
 -- Najczêœciej kupuj¹cy klient.
 CREATE VIEW most_popular_client AS
 (
@@ -48,6 +55,18 @@ CREATE VIEW most_popular_client AS
 	JOIN client c ON c.id = top_clients.client_id
 )
 GO
+
+-- Statystyki klienta
+--DECLARE @number_of_clients INT;
+--SET @number_of_clients = (SELECT COUNT(client.id) FROM client)
+--SELECT	SUM(order_value.price) Overall_Value, 
+--		MIN(order_value.price) MIN_Value,
+--		MAX(order_value.price) MAX_Value, 
+--		SUM(order_value.price)/@number_of_clients Average_Value_for_client 
+--FROM order_value
+--GO
+
+
 
 -- Najmniej popularny sk³adnik. NIE DZIA£A
 CREATE VIEW less_popular_ingredient AS
@@ -69,15 +88,6 @@ CREATE VIEW less_popular_ingredient AS
 	ORDER BY sold_number
 )
 GO
-
--- Statystyki 
-DECLARE @number_of_clients INT;
-SET @number_of_clients = (SELECT COUNT(client.id) FROM client)
-SELECT	SUM(order_value.price) Overall_Value, 
-		MIN(order_value.price) MIN_Value,
-		MAX(order_value.price) MAX_Value, 
-		SUM(order_value.price)/@number_of_clients Average_Value_for_client 
-FROM order_value
 
 
 
@@ -112,15 +122,4 @@ FROM order_value
 	--JOIN "order" o ON o.id = orders_price.order_id
 	--JOIN client c ON c.id = o.client_id
 	--GROUP BY c.id
- GO
-
-
-select * from dish_menu
-select * from ordered_dish
-select * from additional_ingredient
-select * from ingredient
-
-select * from "order"
-select * from dish_menu
-select * from basic_ingredient
-
+ 

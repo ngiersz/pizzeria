@@ -32,33 +32,12 @@ CREATE TABLE client
 	rv rowversion
 );
 
-
-CREATE TABLE deliverer
-(
-    id INT PRIMARY KEY IDENTITY NOT NULL,
-    first_name NVARCHAR(100) NOT NULL,
-    last_name NVARCHAR(100) NOT NULL,
-	rv rowversion
-);
-
-CREATE TABLE cook
-(
-    id INT PRIMARY KEY IDENTITY NOT NULL,
-    first_name NVARCHAR(100) NOT NULL,
-    last_name NVARCHAR(100) NOT NULL,
-	rv rowversion
-);
-
 -- drop table "order"
 CREATE TABLE "order"
 (
     id INT PRIMARY KEY IDENTITY NOT NULL,
 	client_id INT FOREIGN KEY REFERENCES Client(id),
-	delivery_time INT DEFAULT 60,
-	deliverer_id INT FOREIGN KEY REFERENCES Deliverer(id),
-	cook_id INT FOREIGN KEY REFERENCES Cook(id),
 	discount INT CHECK (discount BETWEEN 0 AND 100) DEFAULT 0, -- TODO 
-	completed BIT DEFAULT 0,
 	rv rowversion
 );
 
@@ -108,6 +87,3 @@ CREATE TABLE basic_ingredient
 	ingredient_id INT FOREIGN KEY REFERENCES ingredient(id),
 	rv rowversion
 );
-
-
-
