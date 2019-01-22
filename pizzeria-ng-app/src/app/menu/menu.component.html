@@ -1,25 +1,19 @@
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-<table style="width:100%" class="table-bordered tabl" style="margin-top: 28px;">
-  <thead bgcolor="#cccccc">
-    <tr>
-      <th>ID</th>
-      <th>Nazwa</th>
-      <th>Cena</th>
-      <th></th>
-    </tr>
+<table mdbTable hover="true" borderless="true" class="amber lighten-3" style="margin-top: 80px">
+  <thead class="amber accent-4 border border-0 border-dark">
+  <tr>
+    <th>Nazwa</th>
+    <th>Cena</th>
+    <th></th>
+    <th>Składniki</th>
+  </tr>
   </thead>
-  <tbody>
-    <ng-container *ngFor="let dish of dishes" class="list-group-item">
-      <tr>
-        <td>{{dish.id}} </td>
-        <td>{{dish.name}}</td>
-        <td>{{dish.price}}</td>
-         <td> <button type="button"
-                  (click)="addToCart(dish)"
-                      style="font-size:6px"><i class="material-icons">add_shopping_cart</i></button></td>
+  <tbody class="border border-0 border-dark">
+  <tr mdbTableCol *ngFor="let dish of dishes"  class="border border-0 border-dark">
+    <td>{{dish.name}}</td>
+    <td>{{dish.price}}</td>
 
-      </tr>
-    </ng-container>
+    <td><button mdbBtn color="light" (click)="addToCart(dish)" size="sm" mdbWavesEffect type="button" class="m-0 amber lighten-2  ">Do koszyka</button></td>
+    <td><a *ngFor="let ingredients of dish.basicIngredients">{{ingredients.name}}, </a></td>
+  </tr>
   </tbody>
 </table>

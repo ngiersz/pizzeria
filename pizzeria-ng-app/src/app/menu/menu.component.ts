@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ApiService} from "../shared/api.service";
-import {HttpErrorResponse} from "@angular/common/http";
-import {ClientModel} from "../clients/clients.component";
+import {ApiService} from '../shared/api.service';
+import {HttpErrorResponse} from '@angular/common/http';
+import {Client} from '../clients/clients.component';
 
 @Component({
   selector: 'app-menu',
@@ -9,12 +9,15 @@ import {ClientModel} from "../clients/clients.component";
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  dishes: DishModel[] = [];
+  dishes: DishMenu[] = [];
 
   constructor(private apiService: ApiService) { }
-
+  dishesInCart: DishMenu[] = [];
   ngOnInit() {
     this.getAllDishes();
+    if (JSON.parse(localStorage.getItem('cart')) == null) {
+      localStorage.setItem('cart', JSON.stringify(this.dishesInCart));
+    }
 
   }
 
@@ -24,32 +27,31 @@ export class MenuComponent implements OnInit {
         this.dishes = JSON.parse(JSON.stringify(res));
       },
       (error: HttpErrorResponse) => {
-        alert("error pobieranie dań");
+        alert('error pobieranie dań');
       }
     );
   }
-  model: DishModel[] = [{
-    id: 0,
-    lastModification: 0,
-    price: 0,
-    name: ''
-  }];
 
-  addToCart(dish: DishModel){
-    localStorage.setItem("cart", JSON.stringify(this.model));
+
+  addToCart(dish: DishMenu) {
     let temp;
-    temp = JSON.parse(localStorage.getItem("cart"));
+    temp = JSON.parse(localStorage.getItem('cart'));
     temp.push(dish);
-    localStorage.setItem("cart", JSON.stringify(temp));
-    alert("Danie zostało dodane do koszyka.");
+    localStorage.setItem('cart', JSON.stringify(temp));
+    // alert('Danie zostało dodane do koszyka.');
   }
 
 }
-
-export interface DishModel {
-  id: number,
-  name: string,
-  price: number,
-  lastModification: number
+export interface Ingredient {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+}
+export interface DishMenu {
+  id: number;
+  name: string;
+  price: number;
+  basicIngredients: Ingredient[];
 
 }

@@ -1,29 +1,40 @@
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!--Navbar-->
+<mdb-navbar SideClass="navbar fixed-top navbar-expand-lg navbar-dark red darken-4">
+  <!-- Navbar brand -->
+  <mdb-navbar-brand><a class="navbar-brand" href="/home">Русская пиццерия</a></mdb-navbar-brand>
 
+  <!-- Collapsible content -->
+  <links>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">
-    <i class="material-icons">local_pizza</i>
-    <span class="text-warning">Русская пиццерия</span>
-  </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarColor01">
+    <!-- Links -->
     <ul class="navbar-nav mr-auto">
-      <li ngClass="{ active: isActive('/Klienci')}">
-        <a class="nav-link" routerLink="/clients">Klienci</a>
+      <li class="nav-item">
+        <a class="nav-link waves-light" mdbWavesEffect routerLink="/menu">Menu</a>
       </li>
-      <li ngClass="{ active: isActive('/Adresy')}">
-        <a class="nav-link" routerLink="/addresses">Adresy</a>
+      <li class="nav-item">
+        <a class="nav-link waves-light" mdbWavesEffect routerLink="/makeOrder">Koszyk</a>
       </li>
-      <li ngClass="{ active: isActive('/Menu')}">
-        <a class="nav-link" routerLink="/menu">Menu</a>
-      </li>
-      <li ngClass="{ active: isActive('/makeOrder')}" style="background-color: gold">
-        <a style="color:black" class="nav-link" routerLink="/makeOrder">Złóż zamówienie</a>
-      </li>
+
+      <!-- Dropdown -->
+
     </ul>
-  </div>
-</nav>
+    <!-- Links -->
+    <ul class="navbar-nav mr-0">
+        <li class="nav-item dropdown red darken-4" dropdown>
+          <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle red darken-4 " mdbWavesEffect>
+            Admin<span class="caret"></span></a>
+          <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary red accent-5" role="menu">
+            <a class="dropdown-item  red accent-5" mdbWavesEffect routerLink="/clients">Klienci</a>
+            <!--div class="divider dropdown-divider"></div-->
+            <a class="dropdown-item  red accent-5" mdbWavesEffect routerLink="/addresses">Adresy</a>
+            <a class="dropdown-item  red accent-5" mdbWavesEffect routerLink="/logs">Logi</a>
+            <a class="dropdown-item  red accent-5" mdbWavesEffect routerLink="/queries">Zapytania</a>
+          </div>
+        </li>
+    </ul>
+
+  </links>
+  <!-- Collapsible content -->
+
+</mdb-navbar>
+<!--/.Navbar-->
