@@ -58,9 +58,6 @@ END
 GO
 
 
-USE Pizzeria
-GO
-
 --drop trigger insert_client_create_login
 CREATE TRIGGER insert_client_create_login
 ON Client 
@@ -88,14 +85,9 @@ AS
   BEGIN
 	DECLARE @id INT
 	DECLARE @client_id INT
-    DECLARE @delivery_time INT
-    DECLARE @deliverer_id INT
-	DECLARE @cook_id INT
 	DECLARE @discount INT
-	DECLARE @completed BIT
 
-    SELECT @id = id, @client_id = client_id, @delivery_time = delivery_time,
-    @deliverer_id = deliverer_id, @cook_id = cook_id, @discount = discount, @completed = completed 
+    SELECT @id = id, @client_id = client_id, @discount = discount
     FROM INSERTED
 
 	IF ((SELECT amount_of_orders FROM Client WHERE id = @client_id) = 0 AND @discount = 0)
@@ -107,10 +99,6 @@ AS
 	UPDATE "order"
 	SET discount = @discount
 	WHERE id = @id
-
-	--UPDATE client
-	--SET amount_of_orders = amount_of_orders+1
-	--WHERE id = @client_id
 
   END
 GO

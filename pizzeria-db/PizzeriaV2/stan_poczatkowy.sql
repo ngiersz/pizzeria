@@ -58,9 +58,9 @@ VALUES
 (3,9),
 (3,2)
 
-INSERT INTO "Order"(client_id, delivery_time, deliverer_id, cook_id, discount)  
+INSERT INTO "Order"(client_id, discount)  
 VALUES 
-( 1, 0, 1, 1, 0)
+( 1, 0)
 
 INSERT INTO ordered_dish(order_id, dish_menu_id)  
 VALUES 

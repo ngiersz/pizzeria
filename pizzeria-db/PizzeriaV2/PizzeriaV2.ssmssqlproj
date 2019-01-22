@@ -31,17 +31,17 @@
     </LogicalFolder>
     <LogicalFolder Name="Queries" Type="0" Sorted="true">
       <Items>
-        <FileNode Name="fake_data.sql">
+        <FileNode Name="procedury_funkcje_triggery.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-R53599S\SQLEXPRESS2:True</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>DESKTOP-R53599S\SQLEXPRESS2</AssociatedConnSrvName>
           <AssociatedConnUserName />
-          <FullPath>fake_data.sql</FullPath>
+          <FullPath>procedury_funkcje_triggery.sql</FullPath>
         </FileNode>
-        <FileNode Name="procedury_i_funkcje.sql">
+        <FileNode Name="stan_poczatkowy.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-R53599S\SQLEXPRESS2:True</AssociatedConnectionMoniker>
           <AssociatedConnSrvName>DESKTOP-R53599S\SQLEXPRESS2</AssociatedConnSrvName>
           <AssociatedConnUserName />
-          <FullPath>procedury_i_funkcje.sql</FullPath>
+          <FullPath>stan_poczatkowy.sql</FullPath>
         </FileNode>
         <FileNode Name="tabele.sql">
           <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:DESKTOP-R53599S\SQLEXPRESS2:True</AssociatedConnectionMoniker>

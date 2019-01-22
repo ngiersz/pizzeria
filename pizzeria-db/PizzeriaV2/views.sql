@@ -56,17 +56,6 @@ CREATE VIEW most_popular_client AS
 )
 GO
 
--- Statystyki klienta
---DECLARE @number_of_clients INT;
---SET @number_of_clients = (SELECT COUNT(client.id) FROM client)
---SELECT	SUM(order_value.price) Overall_Value, 
---		MIN(order_value.price) MIN_Value,
---		MAX(order_value.price) MAX_Value, 
---		SUM(order_value.price)/@number_of_clients Average_Value_for_client 
---FROM order_value
---GO
-
-
 
 -- Najmniej popularny sk³adnik. NIE DZIA£A
 CREATE VIEW less_popular_ingredient AS
@@ -89,7 +78,15 @@ CREATE VIEW less_popular_ingredient AS
 )
 GO
 
-
+-- Statystyki klienta
+--DECLARE @number_of_clients INT;
+--SET @number_of_clients = (SELECT COUNT(client.id) FROM client)
+--SELECT	SUM(order_value.price) Overall_Value, 
+--		MIN(order_value.price) MIN_Value,
+--		MAX(order_value.price) MAX_Value, 
+--		SUM(order_value.price)/@number_of_clients Average_Value_for_client 
+--FROM order_value
+--GO
 
 -- Wartoœæ zamówieñ klientów
 
