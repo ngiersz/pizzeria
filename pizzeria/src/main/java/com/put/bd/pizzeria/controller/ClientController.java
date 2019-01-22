@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -18,9 +17,6 @@ public class ClientController {
 
     @Autowired
     ClientService service;
-
-    @Autowired
-    RestResponseEntityExceptionHandler exceptionHandler;
 
     @RequestMapping(method = RequestMethod.GET)
     public List<Client> getAll() {
@@ -41,7 +37,6 @@ public class ClientController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Integer create(@RequestBody Client client) throws Exception {
-        // Exception?
         try {
         return service.create(client);
         } finally {
@@ -53,14 +48,5 @@ public class ClientController {
     public void update(@PathVariable(value = "id") Integer id, @RequestBody Client client) throws Exception {
         service.update(id, client);
     }
-
-//    @ExceptionHandler({ SQLException.class, EntityNotFoundException.class})
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//    public void handleException(Exception e) throws Exception {
-//        Exception newException = new Exception(e.getMessage());
-//        log.error(e.getMessage());
-//        throw newException;
-//
-//    }
 
 }

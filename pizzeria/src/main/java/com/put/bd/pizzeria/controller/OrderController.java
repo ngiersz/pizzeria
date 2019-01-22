@@ -1,8 +1,6 @@
 package com.put.bd.pizzeria.controller;
 
-import com.put.bd.pizzeria.domain.DishMenu;
 import com.put.bd.pizzeria.domain.Order;
-import com.put.bd.pizzeria.domain.OrderedDish;
 import com.put.bd.pizzeria.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,11 +37,6 @@ public class OrderController {
     public List<Order> getClientOrders(@PathVariable(value = "id") Integer clientId) {
         return service.getClientsOrders(clientId);
     }
-
-//    @RequestMapping(value = "/{id}/dishes", method = RequestMethod.GET)
-//    public List<OrderedDish> getOrderedDishes(@PathVariable(value = "id") Integer id) {
-//        return service.getOrderedDishes(id);
-//    }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable(value = "id") Integer id) {

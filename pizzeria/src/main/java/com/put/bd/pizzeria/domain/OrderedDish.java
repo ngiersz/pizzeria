@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -27,7 +26,6 @@ public class OrderedDish {
     Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-//    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "order_id")
     @JsonIgnore
     @NotNull(message = "Nie wybrano zamówienia, którego należy dodać danie.")

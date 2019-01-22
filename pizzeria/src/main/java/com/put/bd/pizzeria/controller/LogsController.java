@@ -4,7 +4,6 @@ import com.put.bd.logging.Log;
 import com.put.bd.logging.LoggingRepository;
 import com.put.bd.pizzeria.domain.OrderSubmission;
 import com.put.bd.pizzeria.persistance.OrderSubmissionRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
